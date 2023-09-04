@@ -9,7 +9,6 @@ public class User
 	{
 		username = this.username;
 		password = this.password ;
-		
 	}
 	
 	public String getUsername()
