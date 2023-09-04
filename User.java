@@ -1,6 +1,6 @@
 package asg;
 
-public class User asdas
+public class User 
 {
 	private String username;
 	private String password;
