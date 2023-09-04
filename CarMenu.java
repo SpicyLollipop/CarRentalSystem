@@ -1,9 +1,8 @@
-package Run;
-
 import java.util.*;
 public class CarMenu {
 	private String carModel;
 	private int carSeats;
+	private String carPlateno;
 	private String carPower;
 	private String carEngine;
 	private String carCategory;
@@ -16,6 +15,10 @@ public class CarMenu {
 	public int getSeats()
 	{
 		return carSeats;
+	}
+	public String getPlateno()
+	{
+		return carPlateno;
 	}
 	public String getPower()
 	{
@@ -34,15 +37,17 @@ public class CarMenu {
 		return carRate;
 	}
 	
-	public CarMenu (String model, int seat, String power, String engine, String category, double rate)
+	public CarMenu (String model, int seat, String plateno, String power, String engine, String category, double rate)
 	{
 		carModel = model;
 		carSeats = seat;
+		carPlateno = plateno;
 		carPower = power;
 		carEngine = engine;
 		carCategory = category;
 		carRate = rate;
 	}
+
 	
 }
 
