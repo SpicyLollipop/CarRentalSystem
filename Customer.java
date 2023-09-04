@@ -1,15 +1,18 @@
 package asg;
 
-public class Customer extends User 
+public class Customer
 {
 	private String customerName;
-	private int customerContact;
+	private String customerIC;
+	private String customerContact;
+	private String customerLicense;
 	
-	Customer(String username, String password, String customerName, int customerContact)
+	Customer(String customerName,String customerIC, String customerContact, String customerLicense)
 	{
-		super(username, password);
 		this.customerName = customerName;
+		this.customerIC = customerIC;
 		this.customerContact = customerContact;
+		this.customerLicense = customerLicense;
 	}
 	
 	public String getCustomerName()
@@ -21,8 +24,18 @@ public class Customer extends User
 	{
 		this.customerName = customerName;
 	}
+
+	public String getCustomerIC()
+	{
+		return customerIC;
+	}
+
+	public void setCustomerIC(String customerIC)
+	{
+		this.customerIC = customerIC;
+	}
 	
-	public int getCustomerContact()
+	public String getCustomerContact()
 	{
 		return customerContact;
 	}
@@ -30,5 +43,15 @@ public class Customer extends User
 	public void setCustomerContact(int customerContact)
 	{
 		this.customerContact = customerContact;
+	}
+
+	public String getCustomerLicense()
+	{
+		return customerLicense;
+	}
+
+	public void setCutomerLicense(String customerLicense)
+	{
+		this.customerLicense = customerLicense;
 	}
 }
