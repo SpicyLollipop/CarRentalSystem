@@ -1,3 +1,4 @@
+//package xxx;
 public class User 
 {
 	private String username;
