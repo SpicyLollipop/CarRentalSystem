@@ -1,13 +1,13 @@
-package asg;
+//package xxx;
 
 public class Customer
 {
 	private String customerName;
 	private String customerIC;
-	private String customerContact;
+	private int customerContact;
 	private String customerLicense;
 	
-	Customer(String customerName,String customerIC, String customerContact, String customerLicense)
+	Customer(String customerName,String customerIC, int customerContact, String customerLicense)
 	{
 		this.customerName = customerName;
 		this.customerIC = customerIC;
@@ -35,7 +35,7 @@ public class Customer
 		this.customerIC = customerIC;
 	}
 	
-	public String getCustomerContact()
+	public int getCustomerContact()
 	{
 		return customerContact;
 	}
