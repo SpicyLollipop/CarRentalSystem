@@ -34,7 +34,7 @@ public class CarMenuTest
                     addCar(input, cars, carFileManager);
                     break;
                 case 2:
-                    displayCars(cars);
+                    displayCars();
                     break;
                 case 3:
                     removeCar(input, cars, carFileManager);
@@ -89,18 +89,52 @@ public class CarMenuTest
         }
     }
 
-    public static void displayCars(ArrayList<CarMenu> cars) {
+    public static void displayCars() {
+        String path = "E:\\Bsc S.E\\Year 1\\Sem 3\\Object Oriented\\Practical\\TestRentalSystem\\car.txt";
+        String line = "";
+
         System.out.println("-----------------------------------------------------------------------------------------------------------");
-        System.out.println("     Model      ||     Seat      ||     Plate No     ||     Power    ||     Engine    ||    Category     ||     Rate/Day     ");
+        System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s%n",
+                "Model", "Seat", "Plate No", "Power", "Engine", "Category", "Rate/Day");
         System.out.println("-----------------------------------------------------------------------------------------------------------");
 
-        for (CarMenu car : cars) {
-        	System.out.printf("%-15s || %-13d || %-15s || %-13s || %-15s || %-13s || %.2f%n",
-            car.getModel(), car.getSeats(), car.getPlateno(), car.getPower(), car.getEngine(),  car.getCategory(), car.getRate());
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+
+            while ((line = br.readLine()) != null) {
+                String[] carData = line.split(",");
+                if (carData.length == 7) {
+                    String model = carData[0].trim();
+                    String seats = carData[1].trim();
+                    String plateno = carData[2].trim();
+                    String power = carData[3].trim();
+                    String engine = carData[4].trim();
+                    String category = carData[5].trim();
+                    String rate = carData[6].trim();
+
+                    System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %.2f%n",
+                            model, seats, plateno, power, engine, category, Double.parseDouble(rate));
+                }
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         System.out.println("-----------------------------------------------------------------------------------------------------------");
     }
+
+
+		
+        //for (CarMenu car : cars) {
+        //	System.out.printf("%-15s || %-13d || %-15s || %-13s || %-15s || %-13s || %.2f%n",
+        //    car.getModel(), car.getSeats(), car.getPlateno(), car.getPower(), car.getEngine(),  car.getCategory(), car.getRate());
+       // }
+
+       // System.out.println("-----------------------------------------------------------------------------------------------------------");
+    
 
     public static void removeCar(Scanner input, ArrayList<CarMenu> cars, Files1 carFileManager) {
         System.out.print("Enter the model of the car to remove: ");
