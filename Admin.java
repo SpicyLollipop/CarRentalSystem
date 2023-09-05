@@ -1,6 +1,6 @@
-package asg;
+//package asg;
 
-public class Admin extends User
-{
+//public class Admin extends User
+//{
 	
-}
+//}
