@@ -5,8 +5,8 @@ public class Files1 {
     private ArrayList<CarMenu> carsList = new ArrayList<CarMenu>();
     private File carFile; // Use File type for the carFile
 
-    public Files1(String fileName) {
-        this.carFile = new File(fileName); // Assign the fileName to the carFile
+    public Files1(String carFile) {
+        this.carFile = new File(carFile); // Assign the fileName to the carFile
     }
 
     public ArrayList<CarMenu> getListOfCars() {
