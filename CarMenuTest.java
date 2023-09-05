@@ -5,58 +5,60 @@ import java.io.*;
 
 public class CarMenuTest 
 {
-    public static void main(String[] args) {
-        ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
-        Scanner input = new Scanner(System.in);
-        Files1 carFileManager = new Files1("car.txt");
+	public static void main(String[] args) {
+	    ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
+	    Scanner input = new Scanner(System.in);
+	    Files1 carFileManager = new Files1("car.txt");
 
-       try {
-                 carFileManager.loadFromFile(); ; // Load data from "car.txt" if the file exists
-        } 
-        catch (IOException e) {
-                System.out.println("Error loading data from file: " + e.getMessage());
-         }
+	    try {
+	        carFileManager.loadFromFile(); 
+	        cars = carFileManager.getListOfCars(); 
+	    } catch (IOException e) {
+	        System.out.println("Error loading data from file: " + e.getMessage());
+	    }
 
-        boolean continueManagingCars = true;
+	    boolean continueManagingCars = true;
 
-        while (continueManagingCars) {
-            System.out.println("Menu:");
-            System.out.println("1. Add a car");
-            System.out.println("2. Display cars");
-            System.out.println("3. Remove a car");
-            System.out.println("4. Quit");
+	    while (continueManagingCars) {
+	        System.out.println("Menu:");
+	        System.out.println("1. Add a car");
+	        System.out.println("2. Display cars");
+	        System.out.println("3. Remove a car");
+	        System.out.println("4. Quit");
 
-            int choice = input.nextInt();
-            input.nextLine(); // Consume the newline character
+	        int choice = input.nextInt();
+	        input.nextLine(); // Consume the newline character
 
-            switch (choice) {
-                case 1:
-                    addCar(input, cars, carFileManager);
-                    break;
-                case 2:
-                    displayCars();
-                    break;
-                case 3:
-                    removeCar(input, cars, carFileManager);
-                    break;
-                case 4:
-                    continueManagingCars = false;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select a valid option.");
-                    break;
-            }
-        }
+	        switch (choice) {
+	            case 1:
+	                addCar(input, cars, carFileManager);
+	                break;
+	            case 2:
+	                displayCars();
+	                break;
+	            case 3:
+	                removeCar(input, cars, carFileManager);
+	                break;
+	            case 4:
+	                continueManagingCars = false;
+	                break;
+	            default:
+	                System.out.println("Invalid choice. Please select a valid option.");
+	                break;
+	        }
+	    }
 
-        input.close();
+	    input.close();
 
-        // Save the car data to "car.txt" before exiting
-        try {
-            carFileManager.saveToFile();
-        } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e.getMessage());
-        }
-    }
+	    
+	    carFileManager.setListOfCars(cars); 
+	    try {
+	        carFileManager.saveToFile(); 
+	    } catch (IOException e) {
+	        System.out.println("Error saving data to file: " + e.getMessage());
+	    }
+	}
+
 
     public static void addCar(Scanner input, ArrayList<CarMenu> cars, Files1 carFileManager) {
         System.out.println("Enter Car Details:");
