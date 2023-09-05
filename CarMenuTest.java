@@ -1,17 +1,19 @@
 import java.util.*;
-import java.io.IOException;
+import java.io.*;
 
-public class CarMenuTest {
+public class CarMenuTest 
+{
     public static void main(String[] args) {
         ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
         Scanner input = new Scanner(System.in);
-        Files1 carFileManager = new Files1("car.txt"); // Create an instance of the Files1 class
+        Files1 carFileManager = new Files1("car.txt");
 
-        try {
-            carFileManager.loadFromFile(); // Load data from "car.txt" if the file exists
-        } catch (IOException e) {
-            System.out.println("Error loading data from file: " + e.getMessage());
-        }
+       try {
+                 carFileManager.loadFromFile(); ; // Load data from "car.txt" if the file exists
+        } 
+        catch (IOException e) {
+                System.out.println("Error loading data from file: " + e.getMessage());
+         }
 
         boolean continueManagingCars = true;
 
@@ -91,8 +93,8 @@ public class CarMenuTest {
         System.out.println("-----------------------------------------------------------------------------------------------------------");
 
         for (CarMenu car : cars) {
-        	System.out.printf("%-15s || %-13d || %-15s || %-13s || %-15s || %.2f%n",
-        		    car.getModel(), car.getSeats(), car.getPlateno(), car.getPower(), car.getEngine(), car.getCategory(), car.getRate());
+        	System.out.printf("%-15s || %-13d || %-15s || %-13s || %-15s || %-13s || %.2f%n",
+            car.getModel(), car.getSeats(), car.getPlateno(), car.getPower(), car.getEngine(),  car.getCategory(), car.getRate());
         }
 
         System.out.println("-----------------------------------------------------------------------------------------------------------");
