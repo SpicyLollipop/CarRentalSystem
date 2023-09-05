@@ -3,61 +3,68 @@
 import java.util.*;
 import java.io.*;
 
-public class CarMenuTest 
-{
-	public static void main(String[] args) {
-	    ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
-	    Scanner input = new Scanner(System.in);
-	    Files1 carFileManager = new Files1("car.txt");
+public class CarMenuTest {
+    public static void main(String[] args) {
+        ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
+        Scanner input = new Scanner(System.in);
 
-	    try {
-	        carFileManager.loadFromFile(); 
-	        cars = carFileManager.getListOfCars(); 
-	    } catch (IOException e) {
-	        System.out.println("Error loading data from file: " + e.getMessage());
-	    }
+        // Use a relative file path (relative to the working directory of your Java program)
+        String relativeFilePath = "car.txt";
 
-	    boolean continueManagingCars = true;
+        // Automatically find the default path for the working directory
+        String workingDirectory = System.getProperty("user.dir");
+        String absoluteFilePath = workingDirectory + File.separator + relativeFilePath;
 
-	    while (continueManagingCars) {
-	        System.out.println("Menu:");
-	        System.out.println("1. Add a car");
-	        System.out.println("2. Display cars");
-	        System.out.println("3. Remove a car");
-	        System.out.println("4. Quit");
+        Files1 carFileManager = new Files1(absoluteFilePath);
 
-	        int choice = input.nextInt();
-	        input.nextLine(); // Consume the newline character
+        try {
+            carFileManager.loadFromFile(); // Load data from "car.txt" if the file exists
+            cars = carFileManager.getListOfCars(); // Load the data into the ArrayList
+        } catch (IOException e) {
+            System.out.println("Error loading data from file: " + e.getMessage());
+        }
 
-	        switch (choice) {
-	            case 1:
-	                addCar(input, cars, carFileManager);
-	                break;
-	            case 2:
-	                displayCars();
-	                break;
-	            case 3:
-	                removeCar(input, cars, carFileManager);
-	                break;
-	            case 4:
-	                continueManagingCars = false;
-	                break;
-	            default:
-	                System.out.println("Invalid choice. Please select a valid option.");
-	                break;
-	        }
-	    }
+        boolean continueManagingCars = true;
 
-	    input.close();
+        while (continueManagingCars) {
+            System.out.println("Menu:");
+            System.out.println("1. Add a car");
+            System.out.println("2. Display cars");
+            System.out.println("3. Remove a car");
+            System.out.println("4. Quit");
 
-	    
-	    carFileManager.setListOfCars(cars); 
-	    try {
-	        carFileManager.saveToFile(); 
-	    } catch (IOException e) {
-	        System.out.println("Error saving data to file: " + e.getMessage());
-	    }
-	}
+            int choice = input.nextInt();
+            input.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    addCar(input, cars, carFileManager);
+                    break;
+                case 2:
+                    displayCars(absoluteFilePath); // Pass the absolute file path
+                    break;
+                case 3:
+                    removeCar(input, cars, carFileManager);
+                    break;
+                case 4:
+                    continueManagingCars = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+                    break;
+            }
+        }
+
+        input.close();
+
+        // Save the car data to "car.txt" (absolute file path) before exiting
+        carFileManager.setListOfCars(cars); // Update the carFileManager with the modified data
+        try {
+            carFileManager.saveToFile(); // Save the data to "car.txt"
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e.getMessage());
+        }
+    }
 
 
     public static void addCar(Scanner input, ArrayList<CarMenu> cars, Files1 carFileManager) {
@@ -91,8 +98,7 @@ public class CarMenuTest
         }
     }
 
-    public static void displayCars() {
-        String path = "E:\\Bsc S.E\\Year 1\\Sem 3\\Object Oriented\\Practical\\TestRentalSystem\\car.txt";
+    public static void displayCars(String filePath) {
         String line = "";
 
         System.out.println("-----------------------------------------------------------------------------------------------------------");
@@ -101,7 +107,7 @@ public class CarMenuTest
         System.out.println("-----------------------------------------------------------------------------------------------------------");
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
 
             while ((line = br.readLine()) != null) {
                 String[] carData = line.split(",");
