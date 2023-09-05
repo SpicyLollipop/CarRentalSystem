@@ -1,3 +1,5 @@
+//package xxx;
+
 public class CarMenu {
 	private String carModel;
 	private int carSeats;
