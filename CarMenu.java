@@ -1,4 +1,3 @@
-import java.util.*;
 public class CarMenu {
 	private String carModel;
 	private int carSeats;
