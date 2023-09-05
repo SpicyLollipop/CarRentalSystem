@@ -7,11 +7,7 @@ public class CarMenuTest {
     public static void main(String[] args) {
         ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
         Scanner input = new Scanner(System.in);
-
-        // Use a relative file path (relative to the working directory of your Java program)
-        String relativeFilePath = "car.txt";
-
-        // Automatically find the default path for the working directory
+	String relativeFilePath = "car.txt";
         String workingDirectory = System.getProperty("user.dir");
         String absoluteFilePath = workingDirectory + File.separator + relativeFilePath;
 
