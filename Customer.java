@@ -1,4 +1,4 @@
-//package xxx;
+package TestRun;
 
 public class Customer
 {
