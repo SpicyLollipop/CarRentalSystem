@@ -130,16 +130,6 @@ public class CarManagement {
         System.out.println("-----------------------------------------------------------------------------------------------------------");
     }
 
-
-		
-        //for (CarMenu car : cars) {
-        //	System.out.printf("%-15s || %-13d || %-15s || %-13s || %-15s || %-13s || %.2f%n",
-        //    car.getModel(), car.getSeats(), car.getPlateno(), car.getPower(), car.getEngine(),  car.getCategory(), car.getRate());
-       // }
-
-       // System.out.println("-----------------------------------------------------------------------------------------------------------");
-    
-
     public static void removeCar(Scanner input, ArrayList<CarMenu> cars, Files1 carFileManager) {
         System.out.print("Enter the model of the car to remove: ");
         String modelToRemove = input.nextLine();
