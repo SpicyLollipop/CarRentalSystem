@@ -52,7 +52,7 @@ public class CarManager {
 		carRate = rate;
 	}
 
-	public static void addCar(Scanner input, ArrayList<CarManager> cars, Files1 carFileManager) {
+	public static void addCar(Scanner input, ArrayList<CarManager> cars, File1 carFileManager) {
         System.out.println("Enter Car Details:");
         System.out.print("Model: ");
         String carModel = input.nextLine();
@@ -83,7 +83,7 @@ public class CarManager {
         }
     }
 	
-    public static void removeCar(Scanner input, ArrayList<CarManager> cars, Files1 carFileManager) {
+    public static void removeCar(Scanner input, ArrayList<CarManager> cars, File1 carFileManager) {
         System.out.print("Enter the model of the car to remove: ");
         String modelToRemove = input.nextLine();
 

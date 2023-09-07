@@ -15,11 +15,11 @@ public class Main
         String workingDirectory = System.getProperty("user.dir");
         String absoluteFilePath = workingDirectory + File.separator + relativeFilePath;
 
-        Files1 carFileManager = new Files1(absoluteFilePath);
+        File1 carFileManager = new File1(absoluteFilePath);
 
         try {
-            carFileManager.loadFromFile(); // Load data from "car.txt" if the file exists
-            cars = carFileManager.getListOfCars(); // Load the data into the ArrayList
+            carFileManager.loadFromFile();
+            cars = carFileManager.getListOfCars(); 
         } catch (IOException e) {
             System.out.println("Error loading data from file: " + e.getMessage());
         }
@@ -34,14 +34,14 @@ public class Main
             System.out.println("4. Quit");
 
             int choice = input.nextInt();
-            input.nextLine(); // Consume the newline character
+            input.nextLine();
 
             switch (choice) {
                 case 1:
                     CarManager.addCar(input, cars, carFileManager);
                     break;
                 case 2:
-                	Files1.displayCars(absoluteFilePath); // Pass the absolute file path
+                	File1.displayCars(absoluteFilePath);
                     break;
                 case 3:
                 	CarManager.removeCar(input, cars, carFileManager);
@@ -58,9 +58,9 @@ public class Main
         input.close();
 
         
-        carFileManager.setListOfCars(cars); // Update the carFileManager with the modified data
+        carFileManager.setListOfCars(cars); 
         try {
-            carFileManager.saveToFile(); // Save the data to "car.txt"
+            carFileManager.saveToFile(); 
         } catch (IOException e) {
             System.out.println("Error saving data to file: " + e.getMessage());
         }
