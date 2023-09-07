@@ -3,7 +3,7 @@
 import java.util.*;
 import java.io.*;
 
-public class CarMenuTest {
+public class CarManagement {
     public static void main(String[] args) {
         ArrayList<CarMenu> cars = new ArrayList<CarMenu>();
         Scanner input = new Scanner(System.in);
