@@ -1,8 +1,9 @@
-//package xxx;
+package TestRun;
+
 public class User 
 {
-	private String username;
-	private String password;
+	private static String username = "username";
+	private static String password = "password";
 	
 	public User(String username, String password)
 	{
@@ -10,7 +11,7 @@ public class User
 		this.password = password;
 	}
 	
-	public String getUsername()
+	public static String getUsername()
 	{
 		return username;
 	}
@@ -20,7 +21,7 @@ public class User
 		this.username = username;
 	}
 	
-	public String getPassword()
+	public static String getPassword()
 	{
 		return password;
 	}
