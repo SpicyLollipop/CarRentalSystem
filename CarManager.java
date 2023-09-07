@@ -1,6 +1,6 @@
 //package xxx;
 
-public class CarMenu {
+public class CarManager {
 	private String carModel;
 	private int carSeats;
 	private String carPlateno;
