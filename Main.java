@@ -82,16 +82,14 @@ public class Main {
                         		case 1:
                         			BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
                            		break;
-                           		
                         		case 2:
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
                             		BookingManagement.selectCar(scanner, carFileManager.getListOfCars());
                             		BookingManagement.storeBookingDetails();
                             		break;
-                            		
                         		case 3:
-                        			BookingManagement.CheckBookingDetail(scanner, filePath);
+                        			BookingManagement.CheckBookingDetail(scanner);
                         			break;
                         			
                         		case 4:
