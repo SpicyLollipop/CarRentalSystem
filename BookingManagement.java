@@ -178,31 +178,47 @@ public class BookingManagement {
         }
     }
     
-    public static void CheckBookingDetail(Scanner sc, String bookingDetail) throws IOException{
+    public static void CheckBookingDetail(Scanner input) {
     	System.out.print("Enter Customer IC: ");
-    	String IcNumber = sc.nextLine();
-    	
-    	boolean found = false;
-    	String line = "";
-    	
-    	try {
-    		BufferedReader reader = new BufferedReader(new FileReader("bookingDetail.txt"));
-    		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s ||  %-15s%n","Name", "IC", "Contact", "License", "Start", "End", "Duration", "Car", "Rental");
-            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-            
-            if(IcNumber.equals(icNumber)) {
-            	found = true;
-            	System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s ||  %-15s%n",customerName, icNumber, contactInfo, licenseInfo, startDate, endDate, durationInDays, rentCarNo, rentCarPay);
+        String IcNumber = input.nextLine();
+        
+        boolean found = false;
+        String line;
+        try (BufferedReader reader = new BufferedReader(new FileReader("bookingDetail.txt"))) {
+
+            // Display a header for the booking details table
+            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s%n",
+                    "Name", "IC", "Contact", "License", "Start", "End", "Duration", "Car", "Rental");
+            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            // Read each line from the file until the end is reached
+            while ((line = reader.readLine()) != null) {
+                // Split the line into individual fields using a comma (,) as the delimiter
+                String[] bookingInfo = line.split(",");
+                
+                // Assuming IC number is in the second column (index 1 in the array)
+                String bookedICNumber = bookingInfo[1];
+
+                // Check if the IC number from the file matches the provided IC number
+                if (bookedICNumber.equals(icNumber)) {
+                    found = true; // Set the flag to indicate a match was found
+
+                    // Display booking details for the matching booking
+                    System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s || %-15s%n",
+                            bookingInfo[0], bookingInfo[1], bookingInfo[2], bookingInfo[3],
+                            bookingInfo[5], bookingInfo[6], bookingInfo[7], bookingInfo[4], bookingInfo[8]);
+                }
             }
-            else {
-            	System.out.print("Invalid input!");
-            }
-    	}
-    	catch(IOException ex) {
-    		System.out.printf("Error message: ", ex.getMessage());
-    	}
-    	
+        } catch (IOException e) {
+            // Handle any potential IOException (e.g., file not found or error reading the file)
+            System.out.println("Error reading booking details: " + e.getMessage());
+        }
+
+        // Check if no booking details were found for the provided IC number
+        if (!found) {
+            System.out.println("No booking details found for the provided IC number.");
+        }
     }
     
 	public static void CancelBooking() {
