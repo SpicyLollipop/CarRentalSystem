@@ -1,90 +1,128 @@
-package TestRun;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.io.*;
-import java.util.*;
-
-public class Main
-{
-    public static void main(String[] args)
-    {
-        boolean isVerified = false;
-        while (!isVerified)
-        {
-        	Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter username: ");
-            String enteredUsername = scanner.nextLine();
-            System.out.print("Enter password: ");
-            String enteredPassword = scanner.nextLine();
-        	
-        	if (enteredUsername.equals(User.getUsername()) && enteredPassword.equals(User.getPassword())) {
-        	    isVerified = true;
-        	    System.out.println("Login successfully! \n");
-        	} else {
-        	    System.out.println("Wrong username or password! Try again.");
-        	}
-
+public class Main {
+    public static void main(String[] args) {
+        // Initialize FileManagement and load car data
+        String filePath = CarManager.findPath();
+        FileManagement carFileManager = new FileManagement(filePath);
+        BookingManagement bookingManager = new BookingManagement(null, null, null, null);
+        // Load car data from the file
+        try {
+            carFileManager.loadFromFile();
+        } catch (IOException e) {
+            System.out.println("Error loading car data from file: " + e.getMessage());
+            // Handle the exception gracefully
         }
-    	
-    	if (isVerified) 
-    	{
-	    	ArrayList<CarManager> cars = new ArrayList<CarManager>();
-	        Scanner input = new Scanner(System.in);
-	        String relativeFilePath = "car.txt";
-	        String workingDirectory = System.getProperty("user.dir");
-	        String absoluteFilePath = workingDirectory + File.separator + relativeFilePath;
-	
-	        File1 carFileManager = new File1(absoluteFilePath);
-	
-	        try {
-	            carFileManager.loadFromFile();
-	            cars = carFileManager.getListOfCars(); 
-	        } catch (IOException e) {
-	            System.out.println("Error loading data from file: " + e.getMessage());
-	        }
-	
-	        boolean continueManagingCars = true;
-	
-	        while (continueManagingCars) {
-	            System.out.println("Menu:");
-	            System.out.println("1. Add a car");
-	            System.out.println("2. Display cars");
-	            System.out.println("3. Remove a car");
-	            System.out.println("4. Update car status");
-	            System.out.println("5. Quit");
-	
-	            int choice = input.nextInt();
-	            input.nextLine();
-	
-	            switch (choice) {
-	                case 1:
-	                    CarManager.addCar(input, cars, carFileManager);
-	                    break;
-	                case 2:
-	                	File1.displayCars(absoluteFilePath);
-	                    break;
-	                case 3:
-	                	CarManager.removeCar(input, cars, carFileManager);
-	                    break;
-	                case 4:
-	                    continueManagingCars = false;
-	                    break;
-	                default:
-	                    System.out.println("Invalid choice. Please select a valid option.");
-	                    break;
-	            }
-	        }
-	
-	        input.close();
-	
-	        
-	        carFileManager.setListOfCars(cars); 
-	        try 
-	        {
-	            carFileManager.saveToFile(); 
-	        } catch (IOException e) 
-	        {
-	            System.out.println("Error saving data to file: " + e.getMessage());
-	        }
-    	}
+
+        // Initialize Scanner
+        Scanner scanner = new Scanner(System.in);
+
+        // Main menu loop
+        boolean mainMenuLoop = true;
+        while (mainMenuLoop) {
+            Menu.MainMenu();
+
+            int mainMenuChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (mainMenuChoice) {
+                case 1:
+                    // Car menu loop
+                    boolean carMenuLoop = true;
+                    while (carMenuLoop) {
+                        Menu.displayCarMenu();
+
+                        int carMenuChoice = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+
+                        switch (carMenuChoice) {
+                            case 1:
+                                // Add a car
+                                CarManager.addCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                break;
+                            case 2:
+                                // Display cars
+                                CarManager.displayCars(filePath);
+                                break;
+                            case 3:
+                                // Remove a car
+                                CarManager.removeCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                break;
+                            case 4:
+                                // Search for a car
+                                CarManager.searchCar(scanner, carFileManager.getListOfCars());
+                                break;
+                            case 5:
+                                // Update car status
+                                CarManager.updateStatus(scanner, carFileManager.getListOfCars());
+                                break;
+                            case 6:
+                                // Quit car menu
+                                carMenuLoop = false;
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please select a valid option.");
+                                break;
+                        }
+                    }
+                    break;
+                case 2:
+                    // Booking menu loop
+                    boolean bookingMenuLoop = true;
+                    while (bookingMenuLoop) {
+                        Menu.displayBookingMenu();
+                        
+                        int bookingMenuChoice = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+                        
+                    		switch (bookingMenuChoice) 
+                    		{
+                        		case 1:
+                        			BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
+                           		break;
+                           		
+                        		case 2:
+                        			BookingManagement.registerCustomer(scanner);
+                            		BookingManagement.getDateDuration();
+                            		BookingManagement.selectCar(scanner, carFileManager.getListOfCars());
+                            		BookingManagement.storeBookingDetails();
+                            		break;
+                            		
+                        		case 3:
+                        			BookingManagement.CheckBookingDetail(scanner, filePath);
+                        			break;
+                        			
+                        		case 4:
+                            		BookingManagement.CancelBooking();
+                            		break;
+                        		case 5:
+                            		System.out.println("Exiting program.");
+                            		scanner.close();
+                            		System.exit(0);
+                        		default:
+                            		System.out.println("Invalid choice. Please select a valid option.");
+                            		break;
+                    		}
+                    }
+                    break;
+                case 3:
+                    // Save car data and exit
+                    try {
+                        carFileManager.saveToFile();
+                    } catch (IOException e) {
+                        System.out.println("Error saving car data to file: " + e.getMessage());
+                    }
+                    mainMenuLoop = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+                    break;
+            }
+        }
+
+        // Close the scanner
+        scanner.close();
     }
 }
