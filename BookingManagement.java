@@ -29,6 +29,18 @@ public class BookingManagement {
         this.rentCarModel = ""; // Initialize to an empty string
         this.rentCarPay = rentCarPay;
     }
+    
+    public BookingManagement() {
+        this.customerName = null;
+        this.icNumber = null;
+        this.contactInfo = null;
+        this.licenseInfo = null;
+        this.startDate = null;
+        this.endDate = null;
+        this.durationInDays = 0;
+        this.rentCarNo = null;
+        this.rentCarPay = 0.0;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -64,7 +76,6 @@ public class BookingManagement {
         contactInfo = scanner.nextLine();
         System.out.print("Enter customer license: ");
         licenseInfo = scanner.nextLine();
-        System.out.println("Customer registered successfully!");
     }
     
     public static void getDateDuration() {
@@ -111,8 +122,8 @@ public class BookingManagement {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // Display the result with the new format
-        System.out.println("Duration between the two dates: " + outputFormatter.format(date1) +
-                " and " + outputFormatter.format(date2) + " is " + durationInDays + " days");
+        System.out.println("\nDuration between the two dates: " + outputFormatter.format(date1) +
+                " and " + outputFormatter.format(date2) + " is " + durationInDays + " days\n\n");
         
     }
 
@@ -143,6 +154,7 @@ public class BookingManagement {
         for (CarManager car : availableCars) {
             System.out.printf("%-15s || %-20s || %-15.2f%n", car.getPlateno(), car.getModel(), car.getRate());
         }
+        System.out.println();
     }
 
     public static boolean selectCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
@@ -178,7 +190,6 @@ public class BookingManagement {
 
         return select;
     }
-    
     // Method to store booking details and save to a file
     // Method to store booking details and save to a file
     public static void storeBookingDetails() {
