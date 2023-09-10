@@ -17,11 +17,17 @@ public class BookingManagement {
     private static String rentCarModel;
     private static double rentCarPay;
 
-    public BookingManagement(String customerName, String icNumber, String contactInfo, String licenseInfo, String startData, String endData, long durationInDays2, String rentCarNo2, double rentCarPay2) {
+    public BookingManagement(String customerName, String icNumber, String contactInfo, String licenseInfo, String startDate, String endDate, long durationInDays, String rentCarNo, double rentCarPay) {
         this.customerName = customerName;
         this.icNumber = icNumber;
         this.contactInfo = contactInfo;
         this.licenseInfo = licenseInfo;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.durationInDays = durationInDays;
+        this.rentCarNo = rentCarNo;
+        this.rentCarModel = ""; // Initialize to an empty string
+        this.rentCarPay = rentCarPay;
     }
 
     public String getStartDate() {
