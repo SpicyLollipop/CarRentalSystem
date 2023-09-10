@@ -144,7 +144,7 @@ public class CarManager {
             CarManager car = iterator.next();
             if (car.getPlateno().equalsIgnoreCase(carToRemove)) {
                 iterator.remove();
-                System.out.println("Car removed successfully./n");
+                System.out.println("Car removed successfully.\n");
                 removed = true;
                 break;
             }
