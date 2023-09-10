@@ -11,6 +11,5 @@ Kia Sportage,5,YZA 1011,Petrol,Auto,SUV,280.00,Not Available
 Mazda CX-5,5,BCD 1012,Petrol,Auto,SUV,260.00,Available
 Subaru Outback,5,CDE 1013,Petrol,Auto,SUV,270.00,Available
 Audi A4,5,FGH 1014,Petrol,Auto,Sedan,300.00,Not Available
-Mercedes-Benz GLC,5,IJK 1015,Diesel,Auto,SUV,350.00,Available
 BMW 3 Series,5,LMN 1016,Petrol,Auto,Sedan,320.00,Available
 Lexus RX 350,5,PQS 1017,Petrol,Auto,SUV,380.00,Not Available
