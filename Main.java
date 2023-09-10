@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -103,35 +104,48 @@ public class Main {
                     		}
                     }
                     break;
-               case 3:
-                    // Payment menu loop
-                    boolean paymentMenuLoop = true;
-                    while (paymentMenuLoop) {
-                        Menu.displayPaymentMenu();
-                        int paymentMenuChoice = scanner.nextInt();
+                case 3:
+               	 boolean pickupReturnLoop = true;
+                    while (pickupReturnLoop) {
+                        Menu.displayPickupReturnMenu();
+                        int pickupReturnChoice = scanner.nextInt();
                         scanner.nextLine();
                         
-                        switch (paymentMenuChoice) {
-                            case 1://generate receipt
-                            		PaymentSystem paymentSystem = new PaymentSystem();
-                            	   System.out.print("Enter IC of the customer for the receipt: ");
-                                   String icForReceipt = scanner.nextLine();
-                                   paymentSystem.generateCustomerReceipt(icForReceipt);
+                        switch (pickupReturnChoice) {
+                            case 1://Pickup
+                           	 System.out.println( "1 - Pickup TEST");
                                   break;
-                            case 2:
+                            case 2://Return
+                                System.out.println( "2 - Returny TEST");
+                                break;
+                            case 3:
+                                pickupReturnLoop = false; // Quit payment menu
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please select a valid option.");
+                                break;
+                        }
+                    }
+                    break;
+                case 4:
+                    // Payment menu loop
+                    boolean historyMenuLoop = true;
+                    while (historyMenuLoop) {
+                        Menu.displayHistoryMenu();
+                        int historyMenuChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        
+                        switch (historyMenuChoice) {
+                            case 1:
                                 // View Booking History
                                 // Implement the code to view booking history here
                                 break;
-                            case 3:
+                            case 2:
                                 // View Payment History
                                 // Implement the code to view payment history here
                                 break;
-                            case 4:
-                                // Return a car
-                             
-                                break;
-                            case 5:
-                                paymentMenuLoop = false; // Quit payment menu
+                            case 3:
+                                historyMenuLoop = false; // Quit payment menu
                                 break;
                             default:
                                 System.out.println("Invalid choice. Please select a valid option.");
@@ -140,8 +154,8 @@ public class Main {
                     }
                     break;
 
-                case 4:
-                    // Save car data and exit
+               
+                     case 5:
                     try {
                         carFileManager.saveToFile();
                     } catch (IOException e) {
@@ -153,6 +167,7 @@ public class Main {
                     System.out.println("Invalid choice. Please select a valid option.");
                     break;
             }
+
         }
 
         // Close the scanner
