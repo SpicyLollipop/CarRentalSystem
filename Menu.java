@@ -66,7 +66,7 @@ public class Menu {
 	public static void displayPickupReturnMenu() {
         System.out.println( "Pickup and Return");
         System.out.println( "1 - Pickup");
-        System.out.println( "2 - Returny");
+        System.out.println( "2 - Return");
         System.out.println( "3 - Quit");
         System.out.print  ( "Your choice: ");
 	}
