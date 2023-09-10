@@ -83,13 +83,15 @@ public class Main {
                         			BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
                            		break;
                         		case 2:
+                                    boolean carSelected = false;
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
-                                    boolean carSelected = false;
                                     while (!carSelected) {
                                         carSelected = BookingManagement.selectCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                         if (!carSelected) {
-                                            System.out.println("Returning to the booking menu.");
+                                            System.out.println("\nRe-enter the plate number.");
+                                            System.out.println("\nYou can check the availability again.\n\n");
+                                            BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
                                         }
                                     }
                             		BookingManagement.storeBookingDetails();
