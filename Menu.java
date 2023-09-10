@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +29,9 @@ public class Menu {
         System.out.println( "Main Menu");
         System.out.println( "1 - Car Menu");
         System.out.println( "2 - Booking");
-        System.out.println( "3 - Exit");
+        System.out.println( "3 - Pickup & Return");
+        System.out.println( "4 - View History");
+        System.out.println( "5 - Quit");
         System.out.print  ( "Your choice: ");
     }
 	
@@ -53,14 +56,19 @@ public class Menu {
         System.out.print  ( "Your choice: ");
     }
 	
-	public static void displayPaymentMenu() {
-        System.out.println( "Payent Menu");
-        System.out.println( "1 - Generate Receipt");
-        System.out.println( "2 - View Booking History");
-        System.out.println( "3 - View Payment History");
-        System.out.println( "4 - Quit");
+	public static void displayHistoryMenu() {
+        System.out.println( "History Menu");
+        System.out.println( "1 - View Booking History");
+        System.out.println( "2 - View Payment History");
+        System.out.println( "3 - Quit");
         System.out.print  ( "Your choice: ");
     }
-	
+	public static void displayPickupReturnMenu() {
+        System.out.println( "Pickup and Return");
+        System.out.println( "1 - Pickup");
+        System.out.println( "2 - Returny");
+        System.out.println( "3 - Quit");
+        System.out.print  ( "Your choice: ");
+	}
 
 }
