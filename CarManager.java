@@ -245,8 +245,8 @@ public class CarManager {
         return absoluteFilePath;
     }
     
-    public static String carDetailPath() {
-        String TextName = "carDetail.txt";
+    public static String bookingDetailPath() {
+        String TextName = "bookingDetail.txt";
         String workingDirectory = System.getProperty("user.dir");
         String absoluteFilePath = workingDirectory + File.separator + TextName;
         return absoluteFilePath;
