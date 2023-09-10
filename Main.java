@@ -7,7 +7,7 @@ public class Main {
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
-        BookingManagement bookingManager = new BookingManagement();
+        BookingManagement bookingManager = new BookingManagement(null, null, null, null, filePath, filePath, 0, filePath, 0);
         // Load car data from the file
         try {
             carFileManager.loadFromFile();
@@ -83,15 +83,13 @@ public class Main {
                         			BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
                            		break;
                         		case 2:
-                                    boolean carSelected = false;
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
+                                    boolean carSelected = false;
                                     while (!carSelected) {
                                         carSelected = BookingManagement.selectCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                         if (!carSelected) {
-                                            System.out.println("\nRe-enter the plate number.");
-                                            System.out.println("\nYou can check the availability again.\n\n");
-                                            BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
+                                            System.out.println("Returning to the booking menu.");
                                         }
                                     }
                             		BookingManagement.storeBookingDetails();
@@ -120,11 +118,13 @@ public class Main {
                         
                         switch (pickupReturnChoice) {
                             case 1://Pickup
-                           	 System.out.println( "1 - Pickup TEST");
-                                  break;
+                            	PickupReturn pickupReturn = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
+                                pickupReturn.pickupCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                break;
+                                 
                             case 2://Return
-                                PickupReturn pickupReturn = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
-                                pickupReturn.returnCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                PickupReturn pickupReturn1 = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
+                                pickupReturn1.returnCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
                             case 3:
                                 pickupReturnLoop = false; // Quit payment menu
