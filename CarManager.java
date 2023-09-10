@@ -170,9 +170,9 @@ public class CarManager {
         String seatsInput = input.nextLine().trim();
 
         boolean found = false;
-    	System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+    	System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     	System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s || %-8s%n", "PlateNo", "Status", "Model", "Seat", "Power", "Engine", "Category", "Rate/Day");
-    	System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+    	System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         for (CarManager car : cars) {
             boolean modelMatch = searchModel.isEmpty() || car.getModel().toLowerCase().contains(searchModel.toLowerCase()); boolean seatsMatch = seatsInput.isEmpty() || Integer.toString(car.getSeats()).equals(seatsInput);
 
