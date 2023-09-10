@@ -85,7 +85,13 @@ public class Main {
                         		case 2:
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
-                            		BookingManagement.selectCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                    boolean carSelected = false;
+                                    while (!carSelected) {
+                                        carSelected = BookingManagement.selectCar(scanner, carFileManager.getListOfCars(), carFileManager);
+                                        if (!carSelected) {
+                                            System.out.println("Returning to the booking menu.");
+                                        }
+                                    }
                             		BookingManagement.storeBookingDetails();
                             		break;
                         		case 3:
