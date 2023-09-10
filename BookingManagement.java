@@ -139,10 +139,11 @@ public class BookingManagement {
         }
     }
 
-    public static void selectCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
-    	System.out.print("Enter the plate number of the car you want to select: ");
+    public static boolean selectCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
+        System.out.print("Enter the plate number of the car you want to select: ");
         String plateNumber = input.nextLine();
         boolean select = false;
+
         // Find the car with the specified plate number
         for (CarManager car : cars) {
             if (car.getPlateno().equalsIgnoreCase(plateNumber) && car.getStatus().equalsIgnoreCase("Available")) 
@@ -151,7 +152,7 @@ public class BookingManagement {
                 rentCarPay = car.getRate();
                 rentCarModel = car.getModel();
                 car.setStatus("Not Available"); // Update car status to Not Available
-                
+
                 select = true;
                 break;
             }
@@ -159,7 +160,6 @@ public class BookingManagement {
 
         if (!select) {
             System.out.println("Car not found with the specified plate number or not available.");
-            return;
         } else {
             // After updating the car status, save the changes to the file
             carFileManager.setListOfCars(cars);
@@ -169,6 +169,8 @@ public class BookingManagement {
                 System.out.println("Error saving data to file: " + e.getMessage());
             }
         }
+
+        return select;
     }
     
     // Method to store booking details and save to a file
