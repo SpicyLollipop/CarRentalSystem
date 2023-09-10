@@ -7,7 +7,7 @@ public class Main {
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
-        BookingManagement bookingManager = new BookingManagement(null, null, null, null, filePath, filePath, 0, filePath, 0);
+        BookingManagement bookingManager = new BookingManagement();
         // Load car data from the file
         try {
             carFileManager.loadFromFile();
