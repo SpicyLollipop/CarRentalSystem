@@ -103,7 +103,44 @@ public class Main {
                     		}
                     }
                     break;
-                case 3:
+               case 3:
+                    // Payment menu loop
+                    boolean paymentMenuLoop = true;
+                    while (paymentMenuLoop) {
+                        Menu.displayPaymentMenu();
+                        int paymentMenuChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        
+                        switch (paymentMenuChoice) {
+                            case 1://generate receipt
+                            		PaymentSystem paymentSystem = new PaymentSystem();
+                            	   System.out.print("Enter IC of the customer for the receipt: ");
+                                   String icForReceipt = scanner.nextLine();
+                                   paymentSystem.generateCustomerReceipt(icForReceipt);
+                                  break;
+                            case 2:
+                                // View Booking History
+                                // Implement the code to view booking history here
+                                break;
+                            case 3:
+                                // View Payment History
+                                // Implement the code to view payment history here
+                                break;
+                            case 4:
+                                // Return a car
+                             
+                                break;
+                            case 5:
+                                paymentMenuLoop = false; // Quit payment menu
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Please select a valid option.");
+                                break;
+                        }
+                    }
+                    break;
+
+                case 4:
                     // Save car data and exit
                     try {
                         carFileManager.saveToFile();
