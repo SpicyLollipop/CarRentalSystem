@@ -99,7 +99,7 @@ public class BookingManagement {
         LocalDate date2 = LocalDate.parse(endDate, inputFormatter);
 
         // Calculate the duration between the two dates in days
-        durationInDays = Math.abs(date1.toEpochDay() - date2.toEpochDay());
+        durationInDays = Math.abs(date1.toEpochDay() - date2.toEpochDay())+1;
 
         // Define the date format pattern for displaying the result
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
