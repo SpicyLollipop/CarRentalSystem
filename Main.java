@@ -121,7 +121,8 @@ public class Main {
                            	 System.out.println( "1 - Pickup TEST");
                                   break;
                             case 2://Return
-                                System.out.println( "2 - Returny TEST");
+                                PickupReturn pickupReturn = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
+                                pickupReturn.returnCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
                             case 3:
                                 pickupReturnLoop = false; // Quit payment menu
