@@ -4,7 +4,7 @@ import java.io.*;
 public class CarManager {
     private String carModel;
     private int carSeats;
-    private static String carPlateno;
+    private String carPlateno;
     private String carPower;
     private String carEngine;
     private String carCategory;
@@ -19,7 +19,7 @@ public class CarManager {
         return carSeats;
     }
 
-    public static String getPlateno() {
+    public String getPlateno() {
         return carPlateno;
     }
 
@@ -245,8 +245,8 @@ public class CarManager {
         return absoluteFilePath;
     }
     
-    public static String bookingDetailPath() {
-        String TextName = "bookingDetail.txt";
+    public static String carDetailPath() {
+        String TextName = "carDetail.txt";
         String workingDirectory = System.getProperty("user.dir");
         String absoluteFilePath = workingDirectory + File.separator + TextName;
         return absoluteFilePath;
