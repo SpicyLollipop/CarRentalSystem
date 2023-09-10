@@ -1,13 +1,11 @@
-package TestRun;
-
 public class Customer
 {
-	private String customerName;
-	private String customerIC;
-	private int customerContact;
+	private static String customerName;
+	private static String customerIC;
+	private static String customerContact;
 	private String customerLicense;
 	
-	Customer(String customerName,String customerIC, int customerContact, String customerLicense)
+	Customer(String customerName,String customerIC, String customerContact, String customerLicense)
 	{
 		this.customerName = customerName;
 		this.customerIC = customerIC;
@@ -15,7 +13,7 @@ public class Customer
 		this.customerLicense = customerLicense;
 	}
 	
-	public String getCustomerName()
+	public static String getCustomerName()
 	{
 		return customerName;
 	}
@@ -25,7 +23,7 @@ public class Customer
 		this.customerName = customerName;
 	}
 
-	public String getCustomerIC()
+	public static String getCustomerIC()
 	{
 		return customerIC;
 	}
@@ -35,12 +33,12 @@ public class Customer
 		this.customerIC = customerIC;
 	}
 	
-	public int getCustomerContact()
+	public static String getCustomerContact()
 	{
 		return customerContact;
 	}
 	
-	public void setCustomerContact(int customerContact)
+	public void setCustomerContact(String customerContact)
 	{
 		this.customerContact = customerContact;
 	}

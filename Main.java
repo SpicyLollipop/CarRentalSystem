@@ -7,7 +7,7 @@ public class Main {
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
-        BookingManagement bookingManager = new BookingManagement(null, null, null, null);
+        BookingManagement bookingManager = new BookingManagement(null, null, null, null, filePath, filePath, 0, filePath, 0);
         // Load car data from the file
         try {
             carFileManager.loadFromFile();
@@ -56,7 +56,7 @@ public class Main {
                                 break;
                             case 5:
                                 // Update car status
-                                CarManager.updateStatus(scanner, carFileManager.getListOfCars());
+                                CarManager.updateStatus(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
                             case 6:
                                 // Quit car menu
@@ -85,20 +85,18 @@ public class Main {
                         		case 2:
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
-                            		BookingManagement.selectCar(scanner, carFileManager.getListOfCars());
+                            		BookingManagement.selectCar(scanner, carFileManager.getListOfCars(), carFileManager);
                             		BookingManagement.storeBookingDetails();
                             		break;
                         		case 3:
-                        			BookingManagement.CheckBookingDetail(scanner);
+                        			BookingManagement.checkBookingDetail(scanner, carFileManager.getListOfCars());
                         			break;
-                        			
                         		case 4:
-                            		BookingManagement.CancelBooking();
+                            		BookingManagement.CancelBooking(scanner, carFileManager.getListOfCars(), carFileManager);
                             		break;
                         		case 5:
-                            		System.out.println("Exiting program.");
-                            		scanner.close();
-                            		System.exit(0);
+                                    bookingMenuLoop = false;
+                        			break;
                         		default:
                             		System.out.println("Invalid choice. Please select a valid option.");
                             		break;

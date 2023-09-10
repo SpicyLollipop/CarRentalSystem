@@ -1,5 +1,3 @@
-package TestRun;
-
 public class User 
 {
 	private static String username = "username";

@@ -1,0 +1,16 @@
+Proton X50,5,ABC 1001,Petrol,Auto,SUV,250.00,Not Available
+Proton X50,5,XYZ 1002,Petrol,Auto,SUV,250.00,Available
+Proton X70,5,EFG 1003,Petrol,Auto,SUV,300.00,Available
+Toyota Corolla,5,DEF 1004,Petrol,Auto,Sedan,200.00,Available
+Honda Civic,5,GHI 1005,Petrol,Auto,Sedan,220.00,Available
+Ford Explorer,7,JKL 1006,Diesel,Auto,SUV,350.00,Available
+Nissan Altima,5,MNO 1007,Petrol,Auto,Sedan,180.00,Not Available
+Volkswagen Golf,5,STU 1009,Petrol,Auto,Hatchback,170.00,Not Available
+Hyundai Sonata,5,VWX 1010,Petrol,Auto,Sedan,210.00,Available
+Kia Sportage,5,YZA 1011,Petrol,Auto,SUV,280.00,Not Available
+Mazda CX-5,5,BCD 1012,Petrol,Auto,SUV,260.00,Available
+Subaru Outback,5,CDE 1013,Petrol,Auto,SUV,270.00,Available
+Audi A4,5,FGH 1014,Petrol,Auto,Sedan,300.00,Not Available
+Mercedes-Benz GLC,5,IJK 1015,Diesel,Auto,SUV,350.00,Available
+BMW 3 Series,5,LMN 1016,Petrol,Auto,Sedan,320.00,Available
+Lexus RX 350,5,PQS 1017,Petrol,Auto,SUV,380.00,Not Available

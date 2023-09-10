@@ -206,9 +206,9 @@ public class BookingManagement {
             String line;
             boolean found = false;
 
-            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-15s || %-15s || %-15s || %-15s || %-25s || %-15s || %-15s || %-15s ||  %-15s || %-15s%n", "Name", "IC", "Contact", "License", "PlateNo", "Car", "Start", "End", "Duration", "Rate");
-            System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-25s || %-15s || %-15s ||  %-15s || %-15s%n", "Name", "IC", "Contact", "License", "PlateNo", "Car", "Start", "End", "Duration", "Rate");
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             while ((line = reader.readLine()) != null) {
                 String[] bookingInfo = line.split(",");
@@ -216,7 +216,7 @@ public class BookingManagement {
                 // Check if the IC number from the file matches the input IC number
                 if (bookingInfo.length >= 5 && icNumber.equals(bookingInfo[1].trim())) {
                     found = true;
-                    System.out.printf("%-15s || %-15s || %-15s || %-15s || %-25s || %-15s || %-15s || %-15s || %-15s || %-15s%n",
+                    System.out.printf("%-15s || %-15s || %-15s || %-15s || %-15s || %-25s || %-15s || %-15s || %-16s || %-15s%n",
                             bookingInfo[0], bookingInfo[1], bookingInfo[2], bookingInfo[3],
                             bookingInfo[4], bookingInfo[5], bookingInfo[6], bookingInfo[7], bookingInfo[8], bookingInfo[9]);
                 }
@@ -236,10 +236,9 @@ public class BookingManagement {
 
         try {
             File inputFile = new File("bookingDetail.txt");
-            File tempFile = new File("tempBookingDetail.txt");
 
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            ArrayList<String> updatedBookingDetails = new ArrayList<>();
 
             String lineToRemove;
             boolean found = false;
@@ -249,48 +248,50 @@ public class BookingManagement {
                 String[] bookingInfo = lineToRemove.split(",");
 
                 // If the line contains the customer IC, mark it as found and skip adding it to the updated list
-                if (customerIC.equals(bookingInfo[1])) {
+                if (bookingInfo.length >= 2 && customerIC.equals(bookingInfo[1].trim())) {
                     found = true;
-                    
-                    // Update car status to "Available" based on the car plate number
-                    String carPlateNumber = bookingInfo[4];
+
+                    // Find the corresponding car and update its status
                     for (CarManager car : cars) {
-                        if (car.getPlateno().equals(carPlateNumber)) {
+                        if (car.getPlateno().equals(bookingInfo[4].trim())) {
                             car.setStatus("Available");
-                            break;
+                            break; // Assuming each car has a unique registration number
                         }
                     }
-                    
+
                     continue;
                 }
 
-                // Add other lines to the temporary file
-                writer.write(lineToRemove + "\n");
+                // Add other lines to the updated list
+                updatedBookingDetails.add(lineToRemove);
             }
 
             reader.close();
-            writer.close();
 
             if (found) {
-                // Replace the original file with the temporary file
-                if (inputFile.delete() && tempFile.renameTo(inputFile)) {
-                    System.out.println("Booking removed successfully, and car status updated.");
-                } else {
-                    System.out.println("Error updating booking file.");
+                // Rewrite the entire file with the updated booking details
+                BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile));
+
+                for (String updatedBooking : updatedBookingDetails) {
+                    writer.write(updatedBooking + "\n");
                 }
-            } else {
-                System.out.println("No booking found with the specified customer IC.");
-            }
-            
-                // After updating the car status, save the changes to the file
+
+                writer.close();
+                
                 carFileManager.setListOfCars(cars);
                 try {
                     carFileManager.saveToFile();
                 } catch (IOException e) {
                     System.out.println("Error saving data to file: " + e.getMessage());
                 }
+
+                System.out.println("Booking removed successfully.");
+            } else {
+                System.out.println("No booking found with the specified customer IC.");
+            }
         } catch (IOException e) {
             System.out.println("Error removing booking: " + e.getMessage());
         }
     }
+
 }
