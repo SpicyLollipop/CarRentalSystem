@@ -1,3 +1,4 @@
+package CarRentalSystem;
 import java.util.*;
 import java.io.*;
 
@@ -70,22 +71,93 @@ public class CarManager {
 
     public static void addCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
         System.out.println("Enter Car Details:");
-        System.out.print("Model: ");
+        System.out.print("Model (or 'x' to exit): ");
         String carModel = input.nextLine();
-        System.out.print("Seats: ");
-        int carSeats = input.nextInt();
-        input.nextLine();
+
+        if (carModel.equalsIgnoreCase("x")) {
+            System.out.println("Exiting adding car.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
+        int carSeats;
+        while (true) {
+            System.out.print("Seats: ");
+            String seatsInput = input.nextLine();
+            if (seatsInput.equalsIgnoreCase("x")) {
+                System.out.println("Exiting car addition.");
+                System.out.println("Press Enter to continue.");
+                input.nextLine();
+                return;
+            }
+
+            try {
+                carSeats = Integer.parseInt(seatsInput);
+                break; // Exit the loop when a valid number is entered
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for seats. Please enter a valid number or 'x' to exit.");
+            }
+        }
+
         System.out.print("Plateno: ");
         String carPlateno = input.nextLine();
+
+        if (carPlateno.equalsIgnoreCase("x")) {
+            System.out.println("Exiting adding car.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
         System.out.print("Power: ");
         String carPower = input.nextLine();
+
+        if (carPower.equalsIgnoreCase("x")) {
+            System.out.println("Exiting adding car.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
         System.out.print("Engine: ");
         String carEngine = input.nextLine();
+
+        if (carEngine.equalsIgnoreCase("x")) {
+            System.out.println("Exiting adding car.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
         System.out.print("Category: ");
         String carCategory = input.nextLine();
-        System.out.print("Rate/Day: ");
-        double carRate = input.nextDouble();
-        input.nextLine();
+
+        if (carCategory.equalsIgnoreCase("x")) {
+            System.out.println("Exiting adding car.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
+        double carRate;
+        while (true) {
+            System.out.print("Rate/Day: ");
+            String rateInput = input.nextLine();
+            if (rateInput.equalsIgnoreCase("x")) {
+                System.out.println("Exiting adding car.");
+                System.out.println("Press Enter to continue.");
+                input.nextLine();
+                return;
+            }
+
+            try {
+                carRate = Double.parseDouble(rateInput);
+                break; // Exit the loop when a valid number is entered
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for rate. Please enter a valid number or 'x' to exit.");
+            }
+        }
 
         cars.add(new CarManager(carModel, carSeats, carPlateno, carPower, carEngine, carCategory, carRate));
         System.out.println("Car added successfully.");
@@ -96,7 +168,12 @@ public class CarManager {
         } catch (IOException e) {
             System.out.println("Error saving data to file: " + e.getMessage());
         }
+        System.out.println("Press Enter to continue.");
+        input.nextLine();
     }
+
+
+
     
     public static void displayCars(String filePath) {
         String line = "";
@@ -118,7 +195,6 @@ public class CarManager {
                     String engine = carData[4].trim();
                     String category = carData[5].trim();
                     String rate = carData[6].trim();
-                   
 
                     System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %.2f%n", model, seats, plateno, power, engine, category, Double.parseDouble(rate));
                 }
@@ -131,11 +207,22 @@ public class CarManager {
         }
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Press Enter to continue.");
+        Scanner input= new Scanner(System.in);
+        input.nextLine();
     }
 
+
     public static void removeCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
-        System.out.print("\n\nEnter the plate number of the car to remove: ");
+        System.out.print("Enter the plate number of the car to remove (or 'x' to exit): ");
         String carToRemove = input.nextLine();
+
+        if (carToRemove.equalsIgnoreCase("x")) {
+            System.out.println("Exiting remove car");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return; // Exit the method
+        }
 
         boolean removed = false;
 
@@ -160,24 +247,44 @@ public class CarManager {
         } catch (IOException e) {
             System.out.println("Error saving data to file: " + e.getMessage());
         }
+        System.out.println("Press Enter to continue.");
+        input.nextLine();
     }
 
+
     public static void searchCar(Scanner input, ArrayList<CarManager> cars) {
-        System.out.println("Search for a Car:");
+        System.out.println("Search for a Car (or 'x' to exit):");
+        System.out.println("Press Enter twice to display all car.");
         System.out.print("Enter Car Model (Press Enter to skip): ");
         String searchModel = input.nextLine();
+
+        if (searchModel.equalsIgnoreCase("x")) {
+            System.out.println("Exiting car search.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return;
+        }
+
         System.out.print("Enter Number of Seats (Press Enter to skip): ");
         String seatsInput = input.nextLine().trim();
 
+        if (seatsInput.equalsIgnoreCase("x")) {
+            System.out.println("Exiting car search.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return; 
+        }
+
         boolean found = false;
-    	System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-    	System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s || %-8s%n", "PlateNo", "Status", "Model", "Seat", "Power", "Engine", "Category", "Rate/Day");
-    	System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s || %-8s%n", "PlateNo", "Status", "Model", "Seat", "Power", "Engine", "Category", "Rate/Day");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         for (CarManager car : cars) {
-            boolean modelMatch = searchModel.isEmpty() || car.getModel().toLowerCase().contains(searchModel.toLowerCase()); boolean seatsMatch = seatsInput.isEmpty() || Integer.toString(car.getSeats()).equals(seatsInput);
+            boolean modelMatch = searchModel.isEmpty() || car.getModel().toLowerCase().contains(searchModel.toLowerCase());
+            boolean seatsMatch = seatsInput.isEmpty() || Integer.toString(car.getSeats()).equals(seatsInput);
 
             if (modelMatch && seatsMatch) {
-            	System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s || %.2f%n", car.getPlateno(), car.getStatus(), car.getModel(), car.getSeats(), car.getPower(), car.getEngine(), car.getCategory(), car.getRate());
+                System.out.printf("%-15s || %-13s || %-15s || %-13s || %-15s || %-13s || %-13s || %.2f%n", car.getPlateno(), car.getStatus(), car.getModel(), car.getSeats(), car.getPower(), car.getEngine(), car.getCategory(), car.getRate());
                 found = true;
             }
         }
@@ -185,7 +292,10 @@ public class CarManager {
         if (!found) {
             System.out.println("No matching cars found.");
         }
+        System.out.println("Press Enter to continue.");
+        input.nextLine();
     }
+
     
     public static void updateStatus(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
         System.out.println("-----------------------------------------------------------------------");
@@ -197,8 +307,15 @@ public class CarManager {
         }
 
         System.out.println("-----------------------------------------------------------------------");
-        System.out.print("Enter the car plate number to change the car status: ");
+        System.out.print("Enter the car plate number to change the car status (or 'x' to exit): ");
         String plateNoToUpdate = input.nextLine();
+
+        if (plateNoToUpdate.equalsIgnoreCase("x")) {
+            System.out.println("Exiting car status update.");
+            System.out.println("Press Enter to continue.");
+            input.nextLine();
+            return; 
+        }
 
         boolean updated = false;
 
@@ -207,6 +324,7 @@ public class CarManager {
                 System.out.println("Choose status:");
                 System.out.println("1. Available");
                 System.out.println("2. Not Available");
+                System.out.print("Enter your choice: ");
                 int choice = input.nextInt();
                 input.nextLine();
 
@@ -236,7 +354,10 @@ public class CarManager {
                 System.out.println("Error saving data to file: " + e.getMessage());
             }
         }
+        System.out.println("Press Enter to continue.");
+        input.nextLine();
     }
+
     
     public static String findPath() {
         String TextName = "car.txt";
