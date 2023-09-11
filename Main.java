@@ -145,11 +145,12 @@ public class Main {
                         
                         switch (historyMenuChoice) {
                             case 1:
+                                //View Booking History
                                 PickupReturn.displayBookingHistory("bookingHistory.txt");
                                 break;
                             case 2:
                                 // View Payment History
-                                // Implement the code to view payment history here
+                            	PickupReturn.displayPaymentHistory("paymentHistory.txt");
                                 break;
                             case 3:
                                 historyMenuLoop = false; // Quit payment menu
