@@ -267,4 +267,41 @@ import java.text.*;
 
 	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	    }
+		
+	    public static void displayPaymentHistory(String filePath) {
+	        String line = "";
+
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	        System.out.printf("%-20s || %-13s || %-15s || %-15s || %-15s || %-23s || %-9s || %-11s%n", "Customer Name", "IC Number", "Contact Info", "License Info", "Car Model", "Booking Date", "Duration", "Total Amount");
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+	        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	        
+	        try (BufferedReader pr = new BufferedReader(new FileReader(filePath))) {
+	            while ((line = pr.readLine()) != null) {
+	                String[] paymentData = line.split(",");
+	                if (paymentData.length >= 9) {
+	                    String customerName = paymentData[0].trim();
+	                    String icNumber = paymentData[1].trim();
+	                    String contactInfo = paymentData[2].trim();
+	                    String licenseInfo = paymentData[3].trim();
+	                    String carModel = paymentData[4].trim();
+	                    String payDateString = paymentData[5].trim();
+	                    int duration = Integer.parseInt(paymentData[7].trim());
+	                    double totalAmount = Double.parseDouble(paymentData[8].trim());
+	                    
+	                    Date payDate = inputDateFormat.parse(payDateString);
+
+	                    SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	                    String formattedPayDate = outputDateFormat.format(payDate);
+
+	                    System.out.printf("%-20s || %-13s || %-15s || %-15s || %-15s || %-23s || %-9s || %-11.2f%n",
+	                            customerName, icNumber, contactInfo, licenseInfo, carModel, formattedPayDate, duration, totalAmount);
+	                }
+	            }
+	        } catch (IOException | ParseException e) {
+	            e.printStackTrace();
+	        }
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	    }
 	}
