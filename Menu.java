@@ -9,7 +9,9 @@ public class Menu {
 	        Scanner scanner = new Scanner(System.in);
 
 	        while (!isVerified) {
-	            System.out.print("Welcome to Car Rental System\n");
+		    System.out.print("-----------------------------------------");
+	            System.out.print("|     Welcome to Car Rental System      |");
+		    System.out.print("-----------------------------------------");
 	            System.out.print("Enter username: ");
 	            String enteredUsername = scanner.nextLine();
 	            System.out.print("Enter password: ");
