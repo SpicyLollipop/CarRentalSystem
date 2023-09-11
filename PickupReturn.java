@@ -116,6 +116,18 @@ import java.text.*;
 	                    paymentHistoryWriter.write(paymentData);
 	                    paymentHistoryWriter.newLine();
 	                    paymentHistoryWriter.close();
+	                    
+	                    // Print the receipt-like format
+	                    System.out.println("\n===== Car Pickup Receipt =====");
+	                    System.out.println("Customer Name: " + name);
+	                    System.out.println("Contact: " + contact);
+	                    System.out.println("Plate Number: " + plateNumber);
+	                    System.out.println("Car Model: " + model);
+	                    System.out.println("Pay at: " + pickupTime);
+	                    System.out.println("Duration (in hours): " + duration);
+	                    System.out.println("Hourly Rate: $" + PayRate);
+	                    System.out.println("Total Amount: $" + totalAmount);
+	                    System.out.println("==============================\n");
 
 	                    // Save the updated car status to car.txt
 	                    carFileManager.setListOfCars(cars);
