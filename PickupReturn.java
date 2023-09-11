@@ -193,6 +193,7 @@ import java.text.*;
 	            BufferedReader bookingDetailReader = new BufferedReader(new FileReader("bookingDetail.txt"));
 	            String bookingLine;
 	            boolean bookingFound = false;
+	            ArrayList<String> updatedBookingDetails = new ArrayList<>(); // Store updated booking details
 
 	            while ((bookingLine = bookingDetailReader.readLine()) != null) {
 	                String[] bookingInfo = bookingLine.split(",");
@@ -218,13 +219,11 @@ import java.text.*;
 	                    bookingHistoryWriter.newLine();
 	                    bookingHistoryWriter.close();
 
-	                    // Save the updated car status to car.txt
-	                    carFileManager.setListOfCars(cars);
-	                    carFileManager.saveToFile();
-
 	                    System.out.println("Car returned successfully.");
 	                    bookingFound = true;
-	                    break; // Exit the loop since the booking has been found and processed
+	                } else {
+	                    // If the booking doesn't match the current customer, keep it in the updated booking details list
+	                    updatedBookingDetails.add(bookingLine);
 	                }
 	            }
 
@@ -232,11 +231,20 @@ import java.text.*;
 
 	            if (!bookingFound) {
 	                System.out.println("No booking found with the specified IC.");
+	            } else {
+	                // Write the updated booking details back to bookingDetail.txt, excluding the returned booking
+	                BufferedWriter bookingDetailWriter = new BufferedWriter(new FileWriter("bookingDetail.txt"));
+	                for (String updatedBooking : updatedBookingDetails) {
+	                    bookingDetailWriter.write(updatedBooking);
+	                    bookingDetailWriter.newLine();
+	                }
+	                bookingDetailWriter.close();
 	            }
 	        } catch (IOException e) {
 	            System.out.println("Error processing return: " + e.getMessage());
 	        }
 	    }
+
 
 	    
 	    private CarManager findCarByPlateNumber(ArrayList<CarManager> cars, String plateNumber) {
@@ -255,7 +263,6 @@ import java.text.*;
 	    }
 
 	    
-	}
 	    public static void displayBookingHistory(String filePath) {
 	        String line = "";
 
