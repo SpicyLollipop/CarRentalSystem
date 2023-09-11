@@ -260,7 +260,7 @@ import java.text.*;
 	        String line = "";
 
 	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-	        System.out.printf("%-20s || %-13s || %-15s || %-13s || %-15s || %-23s || %-13s%n", "Customer Name", "IC Number", "Contact Info", "License Info", "Car Model", "Booking Date", "Action");
+	        System.out.printf("%-20s || %-13s || %-15s || %-13s || %-15s || %-23s || %-13s%n", "Customer Name", "IC Number", "Contact Info", "License Info", "Car Model", "Pickup/Return Date", "Action");
 	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
 	        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
