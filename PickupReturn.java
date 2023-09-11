@@ -70,41 +70,6 @@ import java.text.*;
 	        }
 	    }
 
-	    public void generatePaymentHistoryFile() {
-	        try {
-	            String basePath = CarManager.findPath();
-	            BufferedWriter paymentHistoryWriter = new BufferedWriter(new FileWriter(basePath + "paymentHistory.txt"));
-
-	            for (String[] data : customerData.values()) {
-	                String line = String.join(",", data);
-	                paymentHistoryWriter.write(line);
-	                paymentHistoryWriter.newLine();
-	            }
-
-	            paymentHistoryWriter.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    
-	    public void savePaymentHistory(String name, String ic, String contact, String plateNumber, String model,
-	            String startDate, String endDate, double duration, double ratePerDay, double totalPayment) {
-	        try {
-	            String basePath = CarManager.findPath();
-	            BufferedWriter paymentHistoryWriter = new BufferedWriter(new FileWriter(basePath + "paymentHistory.txt", true));
-
-	            // Format the payment history data
-	            String paymentHistoryData = String.format("%s,%s,%s,%s,%s,%s,%s,%.2f,%.2f,%.2f", name, ic, contact, plateNumber,
-	                    model, startDate, endDate, duration, ratePerDay, totalPayment);
-
-	            paymentHistoryWriter.write(paymentHistoryData);
-	            paymentHistoryWriter.newLine();
-	            paymentHistoryWriter.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
 	    public void pickupCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
 	        // Get the IC and current time from the user
 	        System.out.print("Enter your IC: ");
@@ -124,6 +89,9 @@ import java.text.*;
 	                    String plateNumber = bookingInfo[4].trim();
 	                    String model = bookingInfo[5].trim();
 	                    String pickupTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+	                    int duration = Integer.parseInt(bookingInfo[8].trim());
+                        double PayRate = Double.parseDouble(bookingInfo[9].trim());
+	                    double totalAmount = PayRate*duration;
 
 	                    // Find the corresponding car and update its status
 	                    CarManager carInstance = findCarByPlateNumber(cars, plateNumber);
@@ -134,11 +102,20 @@ import java.text.*;
 	                    // Save pickup history to pickupHistory.txt
 	                    String pickupHistoryData = name + "," + customerIC + "," + contact + "," + plateNumber + "," + model + ","
 	                            + pickupTime + "," + "pickup";
-
+	                    
 	                    BufferedWriter pickupHistoryWriter = new BufferedWriter(new FileWriter("bookingHistory.txt", true));
 	                    pickupHistoryWriter.write(pickupHistoryData);
 	                    pickupHistoryWriter.newLine();
 	                    pickupHistoryWriter.close();
+	                    
+	                    //Save payment history to paymentHistory.txt
+	                    String paymentData = name + "," + customerIC + "," + contact + "," + plateNumber + "," + model + ","
+	                            + pickupTime + "," + PayRate + "," + duration + "," + totalAmount;
+	                    
+	                    BufferedWriter paymentHistoryWriter = new BufferedWriter(new FileWriter("paymentHistory.txt", true));
+	                    paymentHistoryWriter.write(paymentData);
+	                    paymentHistoryWriter.newLine();
+	                    paymentHistoryWriter.close();
 
 	                    // Save the updated car status to car.txt
 	                    carFileManager.setListOfCars(cars);
@@ -161,27 +138,6 @@ import java.text.*;
 	    }
 
 
-	    // You need to implement the calculateDuration, createReceipt, and savePaymentHistory methods.
-
-
-
-
-
-/*	    public void saveBookingHistory(String name, String ic, String contact, String plateNumber) {
-	        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-	        String bookingHistoryData = name + "," + ic + "," + contact + "," + plateNumber + "," + timestamp;
-
-	        try {
-	            String basePath = CarManager.findPath();
-	            BufferedWriter bookingHistoryWriter = new BufferedWriter(new FileWriter(basePath + "bookingHistory.txt", true));
-	            bookingHistoryWriter.write(bookingHistoryData);
-	            bookingHistoryWriter.newLine();
-	            bookingHistoryWriter.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	  */
 	    
 	    public void returnCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
 	        // Get the IC and current time from the user
