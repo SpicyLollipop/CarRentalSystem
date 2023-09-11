@@ -135,7 +135,7 @@ import java.text.*;
 	                    String pickupHistoryData = name + "," + customerIC + "," + contact + "," + plateNumber + "," + model + ","
 	                            + pickupTime + "," + "pickup";
 
-	                    BufferedWriter pickupHistoryWriter = new BufferedWriter(new FileWriter("paymentHistory.txt", true));
+	                    BufferedWriter pickupHistoryWriter = new BufferedWriter(new FileWriter("bookingHistory.txt", true));
 	                    pickupHistoryWriter.write(pickupHistoryData);
 	                    pickupHistoryWriter.newLine();
 	                    pickupHistoryWriter.close();
@@ -255,4 +255,41 @@ import java.text.*;
 	    }
 
 	    
+	}
+	    public static void displayBookingHistory(String filePath) {
+	        String line = "";
+
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	        System.out.printf("%-20s || %-13s || %-15s || %-13s || %-15s || %-23s || %-13s%n", "Customer Name", "IC Number", "Contact Info", "License Info", "Car Model", "Booking Date", "Action");
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+	        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+	            while ((line = br.readLine()) != null) {
+	                String[] bookingData = line.split(",");
+	                if (bookingData.length == 7) {
+	                    String customerName = bookingData[0].trim();
+	                    String icNumber = bookingData[1].trim();
+	                    String contactInfo = bookingData[2].trim();
+	                    String licenseInfo = bookingData[3].trim();
+	                    String carModel = bookingData[4].trim();
+	                    String bookingDateString = bookingData[5].trim();
+	                    String action = bookingData[6].trim();
+
+	                    Date bookingDate = inputDateFormat.parse(bookingDateString);
+
+	                    SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	                    String formattedBookingDate = outputDateFormat.format(bookingDate);
+
+	                    System.out.printf("%-20s || %-13s || %-15s || %-13s || %-15s || %-23s || %-13s%n",
+	                            customerName, icNumber, contactInfo, licenseInfo, carModel, formattedBookingDate, action);
+	                }
+	            }
+	        } catch (IOException | ParseException e) {
+	            e.printStackTrace();
+	        }
+
+	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	    }
 	}
