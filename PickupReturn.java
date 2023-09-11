@@ -1,18 +1,6 @@
-import java.io.BufferedReader;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.*;
+import java.io.*;
+import java.util.*;
 import java.text.*;
 
 	public class PickupReturn{
@@ -124,9 +112,9 @@ import java.text.*;
 	                    System.out.println("Plate Number: " + plateNumber);
 	                    System.out.println("Car Model: " + model);
 	                    System.out.println("Pay at: " + pickupTime);
-	                    System.out.println("Duration (in hours): " + duration);
-	                    System.out.println("Hourly Rate: $" + PayRate);
-	                    System.out.println("Total Amount: $" + totalAmount);
+	                    System.out.println("Duration (in days): " + duration);
+	                    System.out.println("Hourly Rate: RM" + PayRate);
+	                    System.out.println("Total Amount: RM" + totalAmount);
 	                    System.out.println("==============================\n");
 
 	                    // Save the updated car status to car.txt
