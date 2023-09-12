@@ -8,16 +8,15 @@ public class Main implements Continuity{
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
-        BookingManagement bookingManager = new BookingManagement();
+        BookingManagement bookingManager = new BookingManagement(null, null, null, null, filePath, filePath, 0, filePath, 0);
         // Load car data from the file
         try {
             carFileManager.loadFromFile();
         } catch (IOException e) {
             System.out.println("Error loading car data from file: " + e.getMessage());
-            // Handle the exception gracefully
         }
 
-        // Initialize Scanner
+        //scanner for input
         Scanner scanner = new Scanner(System.in);
 
         // Main menu loop
@@ -26,11 +25,11 @@ public class Main implements Continuity{
             Menu.MainMenu();
 
             int mainMenuChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             switch (mainMenuChoice) {
                 case 1:
-                    // Car menu loop
+        
                     boolean carMenuLoop = true;
                     while (carMenuLoop) {
                         Menu.displayCarMenu();
@@ -60,7 +59,7 @@ public class Main implements Continuity{
                                 CarManager.updateStatus(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
                             case 6:
-                                // Quit car menu
+                                // Quit car menu loop
                                 carMenuLoop = false;
                                 break;
                             default:
@@ -80,10 +79,12 @@ public class Main implements Continuity{
                         
                     		switch (bookingMenuChoice) 
                     		{
+                    			//check car availability
                         		case 1:
                         			BookingManagement.checkAvailability(scanner, carFileManager.getListOfCars());
                            		break;
                         		case 2:
+                        			//Rent a car
                         			BookingManagement.registerCustomer(scanner);
                             		BookingManagement.getDateDuration();
                                     boolean carSelected = false;
@@ -97,12 +98,15 @@ public class Main implements Continuity{
                                     Continuity.backMenu();
                             		break;
                         		case 3:
+                        			//Check Booking detail
                         			BookingManagement.checkBookingDetail(scanner, carFileManager.getListOfCars());
                         			break;
                         		case 4:
+                        			//Cancel booking detail
                             		BookingManagement.CancelBooking(scanner, carFileManager.getListOfCars(), carFileManager);
                             		break;
                         		case 5:
+                        			//Quit booking menu loop
                                     bookingMenuLoop = false;
                         			break;
                         		default:
@@ -112,6 +116,7 @@ public class Main implements Continuity{
                     }
                     break;
                 case 3:
+                //Car pick up and return loop
                	 boolean pickupReturnLoop = true;
                     while (pickupReturnLoop) {
                         Menu.displayPickupReturnMenu();
@@ -119,16 +124,18 @@ public class Main implements Continuity{
                         scanner.nextLine();
                         
                         switch (pickupReturnChoice) {
-                            case 1://Pickup
+                        	case 1:
+                        		//Car pickup
                             	PickupReturn pickupReturn = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
                                 pickupReturn.pickupCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
-                                 
-                            case 2://Return
+                            case 2:
+                            	//Car return
                                 PickupReturn pickupReturn1 = new PickupReturn(scanner, carFileManager.getListOfCars(), carFileManager);
                                 pickupReturn1.returnCar(scanner, carFileManager.getListOfCars(), carFileManager);
                                 break;
                             case 3:
+                            	//Quit pickup and return loop
                                 pickupReturnLoop = false; // Quit payment menu
                                 break;
                             default:
@@ -155,6 +162,7 @@ public class Main implements Continuity{
                             	PickupReturn.displayPaymentHistory("paymentHistory.txt");
                                 break;
                             case 3:
+                            	//Quit payment menu loop
                                 historyMenuLoop = false; // Quit payment menu
                                 break;
                             default:
@@ -166,6 +174,7 @@ public class Main implements Continuity{
 
                
                      case 5:
+                    	 //exit whole main menu
                     try {
                         carFileManager.saveToFile();
                     } catch (IOException e) {
@@ -179,8 +188,6 @@ public class Main implements Continuity{
             }
 
         }
-
-        // Close the scanner
         scanner.close();
     }
 }
