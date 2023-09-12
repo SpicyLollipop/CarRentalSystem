@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class Main implements Continuity{
     public static void main(String[] args) {
         Menu.Login();
         // Initialize FileManagement and load car data
@@ -94,6 +94,7 @@ public class Main {
                                         }
                                     }
                             		BookingManagement.storeBookingDetails();
+                                    Continuity.backMenu();
                             		break;
                         		case 3:
                         			BookingManagement.checkBookingDetail(scanner, carFileManager.getListOfCars());
