@@ -8,7 +8,6 @@ public class Main implements Continuity{
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
-        BookingManagement bookingManager = new BookingManagement(null, null, null, null, filePath, filePath, 0, filePath, 0);
         // Load car data from the file
         try {
             carFileManager.loadFromFile();
