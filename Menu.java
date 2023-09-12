@@ -1,3 +1,4 @@
+package CarRentalSystem;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -9,9 +10,9 @@ public class Menu {
 	        Scanner scanner = new Scanner(System.in);
 
 	        while (!isVerified) {
-		    System.out.println("-----------------------------------------");
-	            System.out.println("|     Welcome to Car Rental System      |");
-		    System.out.println("-----------------------------------------");
+		    System.out.println("--------------------------------------------");
+	        System.out.println("|     Welcome to GeeNiTaiMei Car Rent      |");
+		    System.out.println("--------------------------------------------");
 	            System.out.print("Enter username: ");
 	            String enteredUsername = scanner.nextLine();
 	            System.out.print("Enter password: ");
