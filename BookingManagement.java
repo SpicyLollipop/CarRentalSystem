@@ -30,6 +30,18 @@ public class BookingManagement {
         this.rentCarPay = rentCarPay;
     }
 
+     public BookingManagement() {
+        this.customerName = null;
+        this.icNumber = null;
+        this.contactInfo = null;
+        this.licenseInfo = null;
+        this.startDate = null;
+        this.endDate = null;
+        this.durationInDays = 0;
+        this.rentCarNo = null;
+        this.rentCarPay = 0.0;
+    }
+
     public String getStartDate() {
         return startDate;
     }
