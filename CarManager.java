@@ -2,7 +2,7 @@
 import java.util.*;
 import java.io.*;
 
-public class CarManager extends Car{
+public class CarManager extends Ca implements Continuity{
     
     public CarManager(String model, int seat, String plateno, String power, String engine, String category,
 			double rate) {
