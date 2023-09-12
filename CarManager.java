@@ -21,8 +21,7 @@ public class CarManager extends Car{
 
         if (carModel.equalsIgnoreCase("x")) {
             System.out.println("\nExiting adding car.");
-            System.out.println("\nPress Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -32,8 +31,7 @@ public class CarManager extends Car{
             String seatsInput = input.nextLine();
             if (seatsInput.equalsIgnoreCase("x")) {
                 System.out.println("\nExiting adding car.");
-                System.out.println("\nPress Enter to continue.");
-                input.nextLine();
+                Continuity.backMenu();;
                 return;
             }
 
@@ -50,8 +48,7 @@ public class CarManager extends Car{
 
         if (carPlateno.equalsIgnoreCase("x")) {
             System.out.println("\nExiting adding car.");
-            System.out.println("\nPress Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -60,8 +57,7 @@ public class CarManager extends Car{
 
         if (carPower.equalsIgnoreCase("x")) {
             System.out.println("\nExiting adding car.");
-            System.out.println("\nPress Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -70,8 +66,7 @@ public class CarManager extends Car{
 
         if (carEngine.equalsIgnoreCase("x")) {
             System.out.println("\nExiting adding car.");
-            System.out.println("\nPress Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -80,8 +75,7 @@ public class CarManager extends Car{
 
         if (carCategory.equalsIgnoreCase("x")) {
             System.out.println("\nExiting adding car.");
-            System.out.println("\nPress Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -91,8 +85,7 @@ public class CarManager extends Car{
             String rateInput = input.nextLine();
             if (rateInput.equalsIgnoreCase("x")) {
                 System.out.println("\nExiting adding car.");
-                System.out.println("\nPress Enter to continue.");
-                input.nextLine();
+                Continuity.backMenu();
                 return;
             }
 
@@ -114,8 +107,7 @@ public class CarManager extends Car{
         } catch (IOException e) {
             System.out.println("Error saving data to file: " + e.getMessage());
         }
-        System.out.println("Press Enter to continue.");
-        input.nextLine();
+        Continuity.backMenu();
     }
 
     //To display all cars from text file
@@ -151,9 +143,7 @@ public class CarManager extends Car{
         }
 
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Press Enter to continue.");
-        Scanner input= new Scanner(System.in);
-        input.nextLine();
+        Continuity.backMenu();
     }
 
     //Remove a car
@@ -163,8 +153,7 @@ public class CarManager extends Car{
 
         if (carToRemove.equalsIgnoreCase("x")) {
             System.out.println("Exiting remove car");
-            System.out.println("Press Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return; // Exit the method
         }
 
@@ -191,8 +180,7 @@ public class CarManager extends Car{
         } catch (IOException e) {
             System.out.println("Error saving data to file: " + e.getMessage());
         }
-        System.out.println("Press Enter to continue.");
-        input.nextLine();
+        Continuity.backMenu();
     }
 
     //Search available car
@@ -204,8 +192,7 @@ public class CarManager extends Car{
 
         if (searchModel.equalsIgnoreCase("x")) {  //Back to Car Menu
             System.out.println("Exiting car search.");
-            System.out.println("Press Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return;
         }
 
@@ -214,8 +201,7 @@ public class CarManager extends Car{
 
         if (seatsInput.equalsIgnoreCase("x")) { 
             System.out.println("Exiting car search.");
-            System.out.println("Press Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return; 
         }
 
@@ -237,8 +223,7 @@ public class CarManager extends Car{
         if (!found) {
             System.out.println("No matching cars found.");
         }
-        System.out.println("Press Enter to continue.");
-        input.nextLine();
+        Continuity.backMenu();
     }
 
     
@@ -257,8 +242,7 @@ public class CarManager extends Car{
 
         if (plateNoToUpdate.equalsIgnoreCase("x")) {
             System.out.println("Exiting car status update.");
-            System.out.println("Press Enter to continue.");
-            input.nextLine();
+            Continuity.backMenu();
             return; 
         }
 
@@ -299,8 +283,7 @@ public class CarManager extends Car{
                 System.out.println("Error saving data to file: " + e.getMessage());
             }
         }
-        System.out.println("Press Enter to continue.");
-        input.nextLine();
+        Continuity.backMenu();
     }
 
     
@@ -329,7 +312,6 @@ public class CarManager extends Car{
             System.out.println("Error loading data from file: " + e.getMessage());
         }
     }
-
 
 
 }
