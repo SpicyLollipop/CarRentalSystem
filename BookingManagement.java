@@ -4,8 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-public class BookingManagement implements Continuity{
+public class BookingManagement {
     private static String customerName;
     private static String icNumber;
     private static String contactInfo;
@@ -16,7 +15,8 @@ public class BookingManagement implements Continuity{
     private static String rentCarNo;
     private static String rentCarModel;
     private static double rentCarPay;
-
+    
+    //Constructor for the class
     public BookingManagement(String customerName, String icNumber, String contactInfo, String licenseInfo, String startDate, String endDate, long durationInDays, String rentCarNo, double rentCarPay) {
         this.customerName = customerName;
         this.icNumber = icNumber;
@@ -28,17 +28,6 @@ public class BookingManagement implements Continuity{
         this.rentCarNo = rentCarNo;
         this.rentCarModel = ""; // Initialize to an empty string
         this.rentCarPay = rentCarPay;
-    }
-    public BookingManagement() {
-        this.customerName = null;
-        this.icNumber = null;
-        this.contactInfo = null;
-        this.licenseInfo = null;
-        this.startDate = null;
-        this.endDate = null;
-        this.durationInDays = 0;
-        this.rentCarNo = null;
-        this.rentCarPay = 0.0;
     }
 
     public String getStartDate() {
@@ -64,7 +53,7 @@ public class BookingManagement implements Continuity{
     public static long getDuration() {
     	return durationInDays;
     }
-    
+    //Register for a customer information
     public static void registerCustomer(Scanner scanner) {
         System.out.println("Customer Registration");
         System.out.print("Enter customer name: ");
@@ -75,9 +64,9 @@ public class BookingManagement implements Continuity{
         contactInfo = scanner.nextLine();
         System.out.print("Enter customer license: ");
         licenseInfo = scanner.nextLine();
-        System.out.println("Customer registered successfully!");
     }
-    
+
+    //Compute duration of day for car rental
     public static void getDateDuration() {
         Scanner scanner = new Scanner(System.in);
 
@@ -87,10 +76,10 @@ public class BookingManagement implements Continuity{
         System.out.print("Enter the date end booking (dd/mm/yyyy): ");
         endDate = scanner.nextLine();
 
-        // Define the date format pattern
+        // Data format can be in 1/1/2023, and 01/01/2023
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-        // Check if the input date strings have single-digit days or months and add leading zeros if needed
+        
         String[] startParts = startDate.split("/");
         String[] endParts = endDate.split("/");
         
@@ -107,65 +96,78 @@ public class BookingManagement implements Continuity{
             endParts[1] = "0" + endParts[1];
         }
 
-        // Reconstruct the corrected date strings
         startDate = String.join("/", startParts);
         endDate = String.join("/", endParts);
-
-        // Parse the input into LocalDate objects using the specified format
         LocalDate date1 = LocalDate.parse(startDate, inputFormatter);
         LocalDate date2 = LocalDate.parse(endDate, inputFormatter);
 
-        // Calculate the duration between the two dates in days
         durationInDays = Math.abs(date1.toEpochDay() - date2.toEpochDay())+1;
 
-        // Define the date format pattern for displaying the result
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        // Display the result with the new format
-        System.out.println("Duration between the two dates: " + outputFormatter.format(date1) +
-                " and " + outputFormatter.format(date2) + " is " + durationInDays + " days");
-        scanner.close();
+        System.out.println("\nDuration between the two dates: " + outputFormatter.format(date1) +
+                " and " + outputFormatter.format(date2) + " is " + durationInDays + " days\n\n");
         
     }
-
+    //check the availability of the car
     public static void checkAvailability(Scanner input, ArrayList<CarManager> cars) {
-    	System.out.println("Press Enter twice to show all available car for booking.: ");
-        System.out.print("Enter car model (Press Enter to skip): ");
-        String searchModel = input.nextLine().trim();
-        System.out.print("Enter number of seats (Press Enter to skip): ");
-        String seatsInput = input.nextLine().trim();
+        System.out.println("Press 'x' to return to the menu at any time.");
+        System.out.println("Press Enter twice to show all available car for booking.");
+        
+        String searchModel = "";
+        String seatsInput = "";
+        
+        while (true) {
+            System.out.print("Enter car model (Press Enter to skip): ");
+            searchModel = input.nextLine().trim();
 
-        // List available cars matching the search criteria
-        ArrayList<CarManager> availableCars = new ArrayList<>();
-        for (CarManager car : cars) {
-            if (car.getStatus().equalsIgnoreCase("Available") &&
-                (searchModel.isEmpty() || car.getModel().equalsIgnoreCase(searchModel)) &&
-                (seatsInput.isEmpty() || Integer.toString(car.getSeats()).equals(seatsInput))) {
-                availableCars.add(car);
+            if (searchModel.equalsIgnoreCase("x")) {
+                System.out.println("\nReturning to the menu.");
+                Continuity.backMenu();
+                return;
+            }
+
+            System.out.print("Enter number of seats (Press Enter to skip): ");
+            seatsInput = input.nextLine().trim();
+
+            if (seatsInput.equalsIgnoreCase("x")) {
+                System.out.println("\nReturning to the menu.");
+                Continuity.backMenu();
+                return;
+            }
+
+            // List available cars matching the search criteria
+            ArrayList<CarManager> availableCars = new ArrayList<>();
+            for (CarManager car : cars) {
+                if (car.getStatus().equalsIgnoreCase("Available") &&
+                    (searchModel.isEmpty() || car.getModel().equalsIgnoreCase(searchModel)) &&
+                    (seatsInput.isEmpty() || Integer.toString(car.getSeats()).equals(seatsInput))) {
+                    availableCars.add(car);
+                }
+            }
+
+            if (availableCars.isEmpty()) {
+                System.out.println("No matching available cars found.");
+            }
+
+            System.out.println("Available cars:");
+            System.out.println("-------------------------------------------------------------------");
+            System.out.printf("%-15s || %-20s || %-15s%n", "Car Plate No", "Car Model", "Payment Rate");
+            System.out.println("-------------------------------------------------------------------");
+            for (CarManager car : availableCars) {
+                System.out.printf("%-15s || %-20s || %-15.2f%n", car.getPlateno(), car.getModel(), car.getRate());
+            }
+            System.out.println("-------------------------------------------------------------------");
+            Continuity.backMenu();
+            return;
             }
         }
-
-        if (availableCars.isEmpty()) {
-            System.out.println("No matching available cars found.");
-        }
-
-        System.out.println("Available cars:");
-        System.out.println("-------------------------------------------------------------------");
-        System.out.printf("%-15s || %-20s || %-15s%n", "Car Plate No", "Car Model", "Payment Rate");
-        System.out.println("-------------------------------------------------------------------");
-        for (CarManager car : availableCars) {
-            System.out.printf("%-15s || %-20s || %-15.2f%n", car.getPlateno(), car.getModel(), car.getRate());
-        }
-        System.out.println("-------------------------------------------------------------------");
-        Continuity.backMenu();
-    }
-
+    
+    //select car by unique plate number
     public static boolean selectCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
         System.out.print("Enter the plate number of the car you want to select: ");
         String plateNumber = input.nextLine();
         boolean select = false;
 
-        // Find the car with the specified plate number
         for (CarManager car : cars) {
             if (car.getPlateno().equalsIgnoreCase(plateNumber) && car.getStatus().equalsIgnoreCase("Available")) 
             {
@@ -182,7 +184,6 @@ public class BookingManagement implements Continuity{
         if (!select) {
             System.out.println("Car not found with the specified plate number or not available.");
         } else {
-            // After updating the car status, save the changes to the file
             carFileManager.setListOfCars(cars);
             try {
                 carFileManager.saveToFile();
@@ -194,18 +195,12 @@ public class BookingManagement implements Continuity{
         return select;
     }
     
-    // Method to store booking details and save to a file
-    // Method to store booking details and save to a file
+    //save the line into the bookingDetail.txt
     public static void storeBookingDetails() {
-        // Implement code to store booking details into an array or object.
-        // Include customer details, chosen car details, booking dates, duration, and payment rate.
-
-        // Create a string with booking details
         String bookingDetail = customerName + "," + icNumber + "," + contactInfo + ","
                 + licenseInfo + "," + BookingManagement.getRentCarNo() + "," + BookingManagement.getRentCarModel() +"," + startDate + ","
                 + endDate + "," + BookingManagement.getDuration() + "," + BookingManagement.getRentCarPay();
 
-        // Save the booking detail to a file
         saveBookingDetailToFile(bookingDetail);
     }
 
@@ -219,19 +214,14 @@ public class BookingManagement implements Continuity{
             System.out.println("Error saving booking details: " + e.getMessage());
         }
     }
-
-    public static void checkBookingDetail(Scanner input, ArrayList<CarManager> cars) {
-        System.out.print("Enter Customer IC (or 'x' to exit): ");
+    
+    //Check booking detail with unique IC
+    public static void checkBookingDetail(Scanner input,ArrayList<CarManager> cars) {
+        System.out.print("Enter Customer IC: ");
         String icNumber = input.nextLine();
 
-        if (icNumber.equalsIgnoreCase("x")) {
-            System.out.println("Exiting booking detail check.");
-            Continuity.backMenu();
-            return;
-        }
-
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("bookingDetail.txt"));
+        	BufferedReader reader = new BufferedReader(new FileReader("bookingDetail.txt"));
             String line;
             boolean found = false;
 
@@ -241,7 +231,7 @@ public class BookingManagement implements Continuity{
 
             while ((line = reader.readLine()) != null) {
                 String[] bookingInfo = line.split(",");
-
+                
                 // Check if the IC number from the file matches the input IC number
                 if (bookingInfo.length >= 5 && icNumber.equals(bookingInfo[1].trim())) {
                     found = true;
@@ -254,22 +244,15 @@ public class BookingManagement implements Continuity{
             if (!found) {
                 System.out.println("No booking details found for the specified IC number.");
             }
-        } catch (IOException e) {
+            }catch (IOException e) {
             System.out.println("Error reading booking details: " + e.getMessage());
         }
-
     }
-
     
+    //Cancel booking from the bookingDetail.txt
     public static void CancelBooking(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
-        System.out.print("Enter customer IC to remove booking (or 'x' to exit): ");
+        System.out.print("Enter customer IC to remove booking: ");
         String customerIC = input.nextLine();
-
-        if (customerIC.equalsIgnoreCase("x")) {
-            System.out.println("Exiting booking cancellation.");
-            Continuity.backMenu();
-            return;
-        }
 
         try {
             File inputFile = new File("bookingDetail.txt");
@@ -280,26 +263,19 @@ public class BookingManagement implements Continuity{
             String lineToRemove;
             boolean found = false;
 
-            // Read each line from the file and check if it contains the customer IC
             while ((lineToRemove = reader.readLine()) != null) {
                 String[] bookingInfo = lineToRemove.split(",");
 
-                // If the line contains the customer IC, mark it as found and skip adding it to the updated list
                 if (bookingInfo.length >= 2 && customerIC.equals(bookingInfo[1].trim())) {
                     found = true;
-
-                    // Find the corresponding car and update its status
                     for (CarManager car : cars) {
                         if (car.getPlateno().equals(bookingInfo[4].trim())) {
                             car.setStatus("Available");
-                            break; // Assuming each car has a unique registration number
+                            break;
                         }
                     }
-
                     continue;
                 }
-
-                // Add other lines to the updated list
                 updatedBookingDetails.add(lineToRemove);
             }
 
@@ -314,7 +290,7 @@ public class BookingManagement implements Continuity{
                 }
 
                 writer.close();
-
+                
                 carFileManager.setListOfCars(cars);
                 try {
                     carFileManager.saveToFile();
@@ -330,6 +306,5 @@ public class BookingManagement implements Continuity{
             System.out.println("Error removing booking: " + e.getMessage());
         }
     }
-
 
 }
