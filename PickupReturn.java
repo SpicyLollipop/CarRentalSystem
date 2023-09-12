@@ -120,7 +120,7 @@ import java.text.*;
 	                    System.out.println("Car Model: " + model);
 	                    System.out.println("Pay at: " + pickupTime);
 	                    System.out.println("Duration (in days): " + duration);
-	                    System.out.println("Hourly Rate: RM" + PayRate);
+	                    System.out.println("Daily Rate: RM" + PayRate);
 	                    System.out.println("Total Amount: RM" + totalAmount);
 	                    System.out.println("==============================\n");
 
