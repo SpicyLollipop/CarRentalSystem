@@ -2,74 +2,18 @@
 import java.util.*;
 import java.io.*;
 
-public class CarManager {
-    private String carModel;
-    private int carSeats;
-    private String carPlateno;
-    private String carPower;
-    private String carEngine;
-    private String carCategory;
-    private double carRate;
-    private String carStatus = "Available";
-
-    public String getModel() {
-        return carModel;
-    }
-
-    public int getSeats() {
-        return carSeats;
-    }
-
-    public String getPlateno() {
-        return carPlateno;
-    }
-
-    public String getPower() {
-        return carPower;
-    }
-
-    public String getEngine() {
-        return carEngine;
-    }
-
-    public String getCategory() {
-        return carCategory;
-    }
-
-    public double getRate() {
-        return carRate;
-    }
-
-    public String getStatus() {
-        return carStatus;
-    }
-
-    public void setStatus(String status) {
-        carStatus = status;
-    }
-
-    public CarManager(String model, int seat, String plateno, String power, String engine, String category, double rate) {
-        carModel = model;
-        carSeats = seat;
-        carPlateno = plateno;
-        carPower = power;
-        carEngine = engine;
-        carCategory = category;
-        carRate = rate;
-    }
-
-    public CarManager(String model, int seat, String plateno, String power, String engine, String category, double rate, String status) {
-        carModel = model;
-        carSeats = seat;
-        carPlateno = plateno;
-        carPower = power;
-        carEngine = engine;
-        carCategory = category;
-        carRate = rate;
-        carStatus = status;
-    }
+public class CarManager extends Car{
     
-    //To add a car
+    public CarManager(String model, int seat, String plateno, String power, String engine, String category,
+			double rate) {
+		super(model, seat, plateno, power, engine, category, rate);
+    }
+	public CarManager(String model, int seat, String plateno, String power, String engine, String category,
+			double rate, String status) {
+		super(model, seat, plateno, power, engine, category, rate, status);
+	}
+
+	//To add a car
     public static void addCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
         System.out.println("\nEnter Car Details:");
         System.out.print("Model (or 'x' to exit): ");
