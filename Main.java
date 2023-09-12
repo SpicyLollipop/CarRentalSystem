@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Menu.Login();
         // Initialize FileManagement and load car data
         String filePath = CarManager.findPath();
         FileManagement carFileManager = new FileManagement(filePath);
