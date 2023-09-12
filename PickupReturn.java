@@ -59,10 +59,15 @@ import java.text.*;
 	    }
 
 	    public void pickupCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
-	        // Get the IC and current time from the user
-	        System.out.print("Enter your IC: ");
+	    	System.out.print("Enter your IC (or 'x' to exit): ");
 	        String customerIC = input.nextLine();
 
+	        if (customerIC.equalsIgnoreCase("x")) {
+	            System.out.println("Exiting car pickup.");
+	            System.out.println("Press Enter to continue.");
+	            input.nextLine();
+	            return;
+	        }
 	        try {
 	            // Read data from bookingDetail.txt
 	            BufferedReader bookingDetailReader = new BufferedReader(new FileReader("bookingDetail.txt"));
@@ -141,8 +146,15 @@ import java.text.*;
 	    
 	    public void returnCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
 	        // Get the IC and current time from the user
-	        System.out.print("Enter your IC: ");
+	    	System.out.print("Enter your IC (or 'x' to exit): ");
 	        String customerIC = input.nextLine();
+
+	        if (customerIC.equalsIgnoreCase("x")) {
+	            System.out.println("Exiting car return.");
+	            System.out.println("Press Enter to continue.");
+	            input.nextLine();
+	            return;
+	        }
 
 	        try {
 	            // Read data from bookingDetail.txt
