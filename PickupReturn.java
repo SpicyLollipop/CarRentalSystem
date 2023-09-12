@@ -5,7 +5,7 @@ import java.text.*;
 
 	public class PickupReturn implements Continuity{
 		
-		private Map<String, String[]> customerData;
+		private Map<String, String[]> customerData; //
 		private FileManagement carFileManager;
 		private ArrayList<CarManager> cars;
 		private Scanner scanner;
@@ -13,16 +13,17 @@ import java.text.*;
 		public PickupReturn(Map<String, String[]> customerData) {
 	        this.customerData = customerData;
 		}
-	    public void readFilesAndProcess() {
+	    	
+		public void readFilesAndProcess() {
 	    	try {
-	            String carPath = CarManager.findPath();
-	            String carDetailPath = CarManager.carDetailPath();
+	            String carPath = CarManager.findPath(); //Find car.txt 
+	            String carDetailPath = CarManager.carDetailPath(); //Find bookingDetail.txt path
 
-	            BufferedReader carReader = new BufferedReader(new FileReader(carPath));
-	            BufferedReader detailReader = new BufferedReader(new FileReader(carDetailPath));
+	            BufferedReader carReader = new BufferedReader(new FileReader(carPath)); //Read car.txt
+	            BufferedReader detailReader = new BufferedReader(new FileReader(carDetailPath)); //Read bookingDetail.txt
 
-	            String carLine;
-	            String detailLine;
+	            String carLine; //Make whole line of car data in txt file as a String
+	            String detailLine; //Make whole line of booking detail in txt file as String
 
 	            while ((carLine = carReader.readLine()) != null && (detailLine = detailReader.readLine()) != null) {
 	                // Process each line from both files
@@ -35,7 +36,8 @@ import java.text.*;
 	            e.printStackTrace();
 	        }
 	    }
-
+		
+	    //Process the whole line of car data and booking detail after read
 	    private void processCarAndDetailLine(String carLine, String detailLine) {
 	        String[] carData = carLine.split(",");
 	        String[] detailData = detailLine.split(",");
@@ -62,7 +64,7 @@ import java.text.*;
 	    	System.out.print("Enter your IC (or 'x' to exit): ");
 	        String customerIC = input.nextLine();
 
-	        if (customerIC.equalsIgnoreCase("x")) {
+	        if (customerIC.equalsIgnoreCase("x")) { //To exit this method
 	            System.out.println("Exiting car pickup.");
 	            System.out.println("Press Enter to continue.");
 	            input.nextLine();
@@ -81,7 +83,7 @@ import java.text.*;
 	                    String contact = bookingInfo[2].trim();
 	                    String plateNumber = bookingInfo[4].trim();
 	                    String model = bookingInfo[5].trim();
-	                    String pickupTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+	                    String pickupTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()); //Set time format as dd-MM-yyyy HH:mm:ss
 	                    int duration = Integer.parseInt(bookingInfo[8].trim());
                         double PayRate = Double.parseDouble(bookingInfo[9].trim());
 	                    double totalAmount = PayRate*duration;
@@ -97,16 +99,16 @@ import java.text.*;
 	                            + pickupTime + "," + "pickup";
 	                    
 	                    BufferedWriter pickupHistoryWriter = new BufferedWriter(new FileWriter("bookingHistory.txt", true));
-	                    pickupHistoryWriter.write(pickupHistoryData);
-	                    pickupHistoryWriter.newLine();
-	                    pickupHistoryWriter.close();
+	                    pickupHistoryWriter.write(pickupHistoryData); //Write pickupHistory data into txt file
+	                    pickupHistoryWriter.newLine(); //Go to new line after finish writting pickup history data
+	                    pickupHistoryWriter.close(); //Close file after finish writting
 	                    
 	                    //Save payment history to paymentHistory.txt
 	                    String paymentData = name + "," + customerIC + "," + contact + "," + plateNumber + "," + model + ","
 	                            + pickupTime + "," + PayRate + "," + duration + "," + totalAmount;
 	                    
 	                    BufferedWriter paymentHistoryWriter = new BufferedWriter(new FileWriter("paymentHistory.txt", true));
-	                    paymentHistoryWriter.write(paymentData);
+	                    paymentHistoryWriter.write(paymentData); //Write payment data into paymentHistory.txt
 	                    paymentHistoryWriter.newLine();
 	                    paymentHistoryWriter.close();
 	                    
@@ -142,8 +144,6 @@ import java.text.*;
 	        }
 		Continuity.backMenu();
 	    }
-
-
 	    
 	    public void returnCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
 	        // Get the IC and current time from the user
@@ -214,8 +214,6 @@ import java.text.*;
 	        }
 		Continuity.backMenu();
 	    }
-
-
 	    
 	    private CarManager findCarByPlateNumber(ArrayList<CarManager> cars, String plateNumber) {
 	        for (CarManager car : cars) {
@@ -231,7 +229,6 @@ import java.text.*;
 	        this.cars = cars;
 	        this.carFileManager = carFileManager;
 	    }
-
 	    
 	    public static void displayBookingHistory(String filePath) {
 	        String line = "";
@@ -280,7 +277,7 @@ import java.text.*;
 
 	        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	        
-	        try (BufferedReader pr = new BufferedReader(new FileReader(filePath))) {
+	        try (BufferedReader pr = new BufferedReader(new FileReader(filePath))) { //Read paymentHistory.txt
 	            while ((line = pr.readLine()) != null) {
 	                String[] paymentData = line.split(",");
 	                if (paymentData.length >= 9) {
