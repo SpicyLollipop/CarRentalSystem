@@ -1,4 +1,3 @@
-package CarRentalSystem;
 import java.io.InputStream;
 import java.util.*;
 public interface Continuity {
