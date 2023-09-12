@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-	public class PickupReturn{
+	public class PickupReturn implements Continuity{
 		
 		private Map<String, String[]> customerData;
 		private FileManagement carFileManager;
@@ -140,6 +140,7 @@ import java.text.*;
 	        } catch (IOException e) {
 	            System.out.println("Error processing pickup: " + e.getMessage());
 	        }
+		Continuity.backMenu();
 	    }
 
 
@@ -211,6 +212,7 @@ import java.text.*;
 	        } catch (IOException e) {
 	            System.out.println("Error processing return: " + e.getMessage());
 	        }
+		Continuity.backMenu();
 	    }
 
 
@@ -266,6 +268,7 @@ import java.text.*;
 	        }
 
 	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	    	Continuity.backMenu();
 	    }
 		
 	    public static void displayPaymentHistory(String filePath) {
@@ -303,5 +306,6 @@ import java.text.*;
 	            e.printStackTrace();
 	        }
 	        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	   	Continuity.backMenu();
 	    }
 	}
