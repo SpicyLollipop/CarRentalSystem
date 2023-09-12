@@ -16,12 +16,12 @@ public class CarManager extends Car implements Continuity{
 	//To add a car
     public static void addCar(Scanner input, ArrayList<CarManager> cars, FileManagement carFileManager) {
         System.out.println("\nEnter Car Details:");
-        System.out.print("Model (or 'x' to exit): ");
+        System.out.print("Model (or 'x' to exit): ");	
         String carModel = input.nextLine();
 
-        if (carModel.equalsIgnoreCase("x")) {
+        if (carModel.equalsIgnoreCase("x")) {	//Exit addCar method
             System.out.println("\nExiting adding car.");
-            Continuity.backMenu();
+            Continuity.backMenu();	//Return Car Menu
             return;
         }
 
@@ -36,7 +36,7 @@ public class CarManager extends Car implements Continuity{
             }
 
             try {
-                carSeats = Integer.parseInt(seatsInput);
+                carSeats = Integer.parseInt(seatsInput);	//Convert seatsInput data type to integer
                 break; // Exit the loop when a valid number is entered
             } catch (NumberFormatException e) {
                 System.out.println("\nInvalid input for seats. Please enter a valid number or 'x' to exit.");
@@ -159,7 +159,7 @@ public class CarManager extends Car implements Continuity{
 
         boolean removed = false;
 
-        Iterator<CarManager> iterator = cars.iterator(); //To remove the whole line of car detail chooses to remove
+        Iterator<CarManager> iterator = cars.iterator(); //Remove the whole line of car detail chooses to remove
         while (iterator.hasNext()) {
             CarManager car = iterator.next();
             if (car.getPlateno().equalsIgnoreCase(carToRemove)) {
@@ -190,7 +190,7 @@ public class CarManager extends Car implements Continuity{
         System.out.print("Enter Car Model (Press Enter to skip): ");
         String searchModel = input.nextLine();
 
-        if (searchModel.equalsIgnoreCase("x")) {  //Back to Car Menu
+        if (searchModel.equalsIgnoreCase("x")) {  
             System.out.println("Exiting car search.");
             Continuity.backMenu();
             return;
